@@ -181,7 +181,17 @@ Description   : {[[Group/G0050|APT32]] is a threat group that has been active si
 TechniqueName : {Scheduled Task, Regsvr32, PowerShell, Custom Command and Control Protocol...}
 Reference     : {FireEye APT32 May 2017, GitHub Malleable C2, GitHub Invoke-Obfuscation}
 
+.EXAMPLE
+[BETA] Exporting custom results to a CSV
 
+PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | select @{Name="Name"; Ex
+pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
+ription"; Expression={$_.Description -join ","}}, @{Name="Analyticdetails"; Expression={$_.AnalyticDetails -join ","}}, @{Name="DataSource";
+ Expression={$_.DataSource -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
+PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | select @{Name="Name"; Ex
+pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
+ription"; Expression={$_.Description -join ","}}, @{Name="Analyticdetails"; Expression={$_.AnalyticDetails -join ","}}, @{Name="DataSource";
+ Expression={$_.DataSource -join ","}} | export-csv C:\wardog\scripts\ATTACKUpdate.csv -NoTypeInformation
 
 .LINK
 https://github.com/Cyb3rWard0g/Invoke-ATTACKAPI
@@ -852,7 +862,7 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
             {
                 write-host "`n[+++] Collecting $cat `n" -ForegroundColor Green
                 if ($cat -eq 'Tactic'){$LookUpQuery = "[[Category:$cat]]|?Has description|?Citation reference|limit=9999"}
-                elseif ($cat -eq 'Technique'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has display name|?Has technical description|?Requires system|?Has mitigation|?Has analytic details|?Has tactic|?Bypasses defense|?Has platform|?Citation reference|limit=9999"}
+                elseif ($cat -eq 'Technique'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has display name|?Has technical description|?Requires system|?Has mitigation|?Has analytic details|?Has tactic|?Has data source|?Bypasses defense|?Has platform|?Citation reference|limit=9999"}
                 elseif ($cat -eq 'Group'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has display name|?Has alias|?Has description|?Has technique|?Uses software|?Citation reference|?Has URL|limit=9999"}
                 elseif ($cat -eq 'Software'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has display name|?Has description|?Has technique|?Has platform|?Has software type|?Has software page|?Citation reference|limit=9999"}
                 elseif ($cat -eq 'Reference'){$LookUpQuery = "[[Citation text::+]]|?Citation key|?Citation text|?Has title|?Has authors|?Retrieved on|?Has URL|limit=9999"}
@@ -881,6 +891,7 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                         'AnalyticDetails' = $object.printouts.'Has analytic details'
                         'Platform' = $object.printouts.'Has platform'
                         'Reference' = $object.printouts.'Citation reference'
+                        'DataSource' = $object.printouts.'Has data source'
                         }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         $Collection += $TotalObjects

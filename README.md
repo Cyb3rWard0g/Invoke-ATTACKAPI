@@ -121,6 +121,18 @@ TechniqueName : {Scheduled Task, Regsvr32, PowerShell, Custom Command and Contro
 Reference     : {FireEye APT32 May 2017, GitHub Malleable C2, GitHub Invoke-Obfuscation}
 ```
 
+### [BETA] Exporting custom results to a CSV
+```
+PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | select @{Name="Name"; Ex
+pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
+ription"; Expression={$_.Description -join ","}}, @{Name="Analyticdetails"; Expression={$_.AnalyticDetails -join ","}}, @{Name="DataSource";
+ Expression={$_.DataSource -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
+PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | select @{Name="Name"; Ex
+pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
+ription"; Expression={$_.Description -join ","}}, @{Name="Analyticdetails"; Expression={$_.AnalyticDetails -join ","}}, @{Name="DataSource";
+ Expression={$_.DataSource -join ","}} | export-csv F:\wardog\scripts\ATTACKUpdate.csv -NoTypeInformation
+
+```
 # Author
 * Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)
 # Contributors
