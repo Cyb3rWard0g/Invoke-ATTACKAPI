@@ -30,6 +30,9 @@ https://attack.mitre.org/api.php?action=ask&format=jsonfm&query=%5B%5BCategory%3
 Connects to the MITRE ATT&CK framework and dumps all its data to an object.
 The output of this is needed before running any other parameters.
 
+.PARAMETER Matrix
+Switch that you can use to display an up to date ATT&CK Matrix for Enterprise
+
 .PARAMETER Category
 Page selector switch. 
 
@@ -188,10 +191,65 @@ PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | wher
 pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
 ription"; Expression={$_.Description -join ","}}, @{Name="Analyticdetails"; Expression={$_.AnalyticDetails -join ","}}, @{Name="DataSource";
  Expression={$_.DataSource -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
-PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | select @{Name="Name"; Ex
-pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
-ription"; Expression={$_.Description -join ","}}, @{Name="Analyticdetails"; Expression={$_.AnalyticDetails -join ","}}, @{Name="DataSource";
- Expression={$_.DataSource -join ","}} | export-csv C:\wardog\scripts\ATTACKUpdate.csv -NoTypeInformation
+
+.EXAMPLE
+Show up to date ATT&CK Matrix for Enterprise
+
+Invoke-ATTACKAPI -Matrix | select Persistence, 'Privilege Escalation', 'Defense Evasion','Credential Access', Discovery, 'Lateral Movement', Execution, Collection, Exfiltration, 'Command and Control' | ft
+
+Persistence                                           Privilege Escalation                  Defense Evasion                         Credential Access                      Discovery                              Lateral Movement                    Execution
+-----------                                           --------------------                  ---------------                         -----------------                      ---------                              ----------------                    ---------
+.bash_profile and .bashrc                             Access Token Manipulation             Access Token Manipulation               Account Manipulation                   Account Discovery                      AppleScript                         AppleScript
+Accessibility Features                                Accessibility Features                Binary Padding                          Bash History                           Application Window Discovery           Application Deployment Software     Application Shimming
+AppInit DLLs                                          AppInit DLLs                          Bypass User Account Control             Brute Force                            File and Directory Discovery           Exploitation of Vulnerability       Command-Line Interface
+Application Shimming                                  Application Shimming                  Clear Command History                   Create Account                         Network Service Scanning               Logon Scripts                       Execution through API
+Authentication Package                                Bypass User Account Control           Code Signing                            Credential Dumping                     Network Share Discovery                Pass the Hash                       Execution through Mod...
+Bootkit                                               DLL Injection                         Component Firmware                      Credentials in Files                   Peripheral Device Discovery            Pass the Ticket                     Graphical User Interface
+Change Default File Association                       DLL Search Order Hijacking            Component Object Model Hijacking        Exploitation of Vulnerability          Permission Groups Discovery            Remote Desktop Protocol             InstallUtil
+Component Firmware                                    Dylib Hijacking                       Deobfuscate/Decode Files or Information Input Capture                          Process Discovery                      Remote File Copy                    Launchctl
+Component Object Model Hijacking                      Exploitation of Vulnerability         Disabling Security Tools                Input Prompt                           Query Registry                         Remote Services                     PowerShell
+Cron Job                                              File System Permissions Weakness      DLL Injection                           Keychain                               Remote System Discovery                Replication Through Removable Media Process Hollowing
+DLL Search Order Hijacking                            Launch Daemon                         DLL Search Order Hijacking              Network Sniffing                       Security Software Discovery            Shared Webroot                      Regsvcs/Regasm
+Dylib Hijacking                                       Local Port Monitor                    DLL Side-Loading                        Private Keys                           System Information Discovery           Taint Shared Content                Regsvr32
+External Remote Services                              New Service                           Exploitation of Vulnerability           Securityd Memory                       System Network Configuration Discovery Third-party Software                Rundll32
+File System Permissions Weakness                      Path Interception                     File Deletion                           Two-Factor Authentication Interception System Network Connections Discovery   Windows Admin Shares                Scheduled Task
+Hidden Files and Directories                          Plist Modification                    File System Logical Offsets                                                    System Owner/User Discovery            Windows Remote Management           Scripting
+Hypervisor                                            Scheduled Task                        Gatekeeper Bypass                                                              System Service Discovery                                                   Service Execution
+Launch Agent                                          Service Registry Permissions Weakness Hidden Files and Directories                                                   System Time Discovery                                                      Source
+Launch Daemon                                         Setuid and Setgid                     Hidden Users                                                                                                                                              Space after Filename
+Launchctl                                             Startup Items                         Hidden Window                                                                                                                                             Third-party Software
+LC_LOAD_DYLIB Addition                                Sudo                                  HISTCONTROL                                                                                                                                               Trap
+Local Port Monitor                                    Valid Accounts                        Indicator Blocking                                                                                                                                        Trusted Developer Uti...
+Login Item                                            Web Shell                             Indicator Removal from Tools                                                                                                                              Windows Management In...
+Logon Scripts                                                                               Indicator Removal on Host                                                                                                                                 Windows Remote Manage...
+Modify Existing Service                                                                     Install Root Certificate
+Netsh Helper DLL                                                                            InstallUtil
+New Service                                                                                 Launchctl
+Office Application Startup                                                                  LC_MAIN Hijacking
+Path Interception                                                                           Masquerading
+Plist Modification                                                                          Modify Registry
+Rc.common                                                                                   Network Share Connection Removal
+Redundant Access                                                                            NTFS Extended Attributes
+Registry Run Keys / Start Folder                                                            Obfuscated Files or Information
+Re-opened Applications                                                                      Plist Modification
+Scheduled Task                                                                              Process Hollowing
+Security Support Provider                                                                   Redundant Access
+Service Registry Permissions Weakness                                                       Regsvcs/Regasm
+Shortcut Modification                                                                       Regsvr32
+Startup Items                                                                               Rootkit
+System Firmware                                                                             Rundll32
+Trap                                                                                        Scripting
+Valid Accounts                                                                              Software Packing
+Web Shell                                                                                   Space after Filename
+Windows Management Instrumentation Event Subscription                                       Timestomp
+Winlogon Helper DLL                                                                         Trusted Developer Utilities
+                                                                                            Valid Accounts
+
+.EXAMPLE
+Show up to date ATT&CK Matrix for Enterprise and export it to a CSV (Technique Names are retrieved as Strings)
+
+Invoke-ATTACKAPI -Matrix | select Persistence, 'Privilege Escalation', 'Defense Evasion','Credential Access', Discovery, 'Lateral Movement', Execution, Collection, Exfiltration, 'Command and Control' | Export-Csv C:\wardog\scripts\matrix.csv -NoTypeInformation
+
 
 .LINK
 https://github.com/Cyb3rWard0g/Invoke-ATTACKAPI
@@ -223,7 +281,10 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
         [Parameter(Position=1,Mandatory=$true,ParameterSetname='Reference')][switch]$Reference,
 
         [Parameter(Position=0,Mandatory=$true,ParameterSetname='SyncATTCK')]
-        [switch]$Sync    
+        [switch]$Sync,
+        
+        [Parameter(Position=0,Mandatory=$true,ParameterSetname='ATTACKMatrix')]
+        [switch]$Matrix   
     )
 
     DynamicParam
@@ -958,9 +1019,70 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                 }
             }  
         }
+        elseif($PSCmdlet.ParameterSetName -eq 'ATTACKMatrix')
+        {
+            $MatrixProps = @{
+                 'Persistence' = $Null
+                 'PrivilegeEscalation' = $Null
+                 'DefenseEvasion' = $Null
+                 'CredentialAccess' = $Null
+                 'Discovery' = $Null
+                 'LateralMovement' = $Null
+                 'Execution' = $Null
+                 'Collection' = $Null
+                 'Exfiltration' = $Null
+                 'CommandControl' = $Null
+            }
+            $ATTACKMatrix = New-Object PSCustomObject -Property $MatrixProps
+          
+            $ATTACKMatrix.Persistence = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Persistence" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.PrivilegeEscalation = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Privilege Escalation" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.DefenseEvasion = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Defense Evasion" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.CredentialAccess = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Credential Access" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Discovery = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Discovery"| select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.LateralMovement = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Lateral Movement" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Execution = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Execution"| select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Collection = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Collection" | select -ExpandProperty Name | Sort-Object          
+            $ATTACKMatrix.Exfiltration = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Exfiltration" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.CommandControl = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Command and Control" | select -ExpandProperty Name | Sort-Object
+            
+            #Source: https://community.spiceworks.com/topic/795591-output-multiple-arrays-as-columns-in-csv
+            #Source: https://stackoverflow.com/questions/23411202/powershell-combine-single-arrays-into-columns
+            $max = (
+                $ATTACKMatrix.Persistence,
+                $ATTACKMatrix.PrivilegeEscalation,
+                $ATTACKMatrix.DefenseEvasion,
+                $ATTACKMatrix.CredentialAccess,
+                $ATTACKMatrix.Discovery,
+                $ATTACKMatrix.LateralMovement,
+                $ATTACKMatrix.Execution,
+                $ATTACKMatrix.Collection,
+                $ATTACKMatrix.Exfiltration,
+                $ATTACKMatrix.CommandControl | Measure-Object -Maximum -Property Count).Maximum
+
+           $ATTACKMatrixTable = @()
+
+           For ($i = 0; $i -lt $max; $i++)
+           {
+                $MatrixTableProps = New-Object Psobject -Property @{
+                    'Persistence'= $(If ($ATTACKMatrix.Persistence[$i]) {$ATTACKMatrix.Persistence[$i]})
+                    'Privilege Escalation'= $(If ($ATTACKMatrix.PrivilegeEscalation[$i]) {$ATTACKMatrix.PrivilegeEscalation[$i]})
+                    'Defense Evasion'= $(If ($ATTACKMatrix.DefenseEvasion[$i]) {$ATTACKMatrix.DefenseEvasion[$i]})
+                    'Credential Access'= $(If ($ATTACKMatrix.CredentialAccess[$i]) {$ATTACKMatrix.CredentialAccess[$i]})
+                    'Discovery'= $(If ($ATTACKMatrix.Discovery[$i]) {$ATTACKMatrix.Discovery[$i]})
+                    'Lateral Movement'= $(If ($ATTACKMatrix.LateralMovement[$i]) {$ATTACKMatrix.LateralMovement[$i]})
+                    'Execution'= $(If ($ATTACKMatrix.Execution[$i]) {$ATTACKMatrix.Execution[$i]})
+                    'Collection'= $(If ($ATTACKMatrix.Collection[$i]) {$ATTACKMatrix.Collection[$i]})
+                    'Exfiltration'= $(If ($ATTACKMatrix.Exfiltration[$i]) {$ATTACKMatrix.Exfiltration[$i]})
+                    'Command and Control'= $(If ($ATTACKMatrix.CommandControl[$i]) {$ATTACKMatrix.CommandControl[$i]})
+                }
+                $ATTACKMatrixTable += $MatrixTableProps
+           }
+           return $ATTACKMatrixTable
+        }
         else
         {
-            $Query
+           return $Query
         }
     }
     End{}
