@@ -103,67 +103,150 @@ This query matches all techniques
 
 Invoke-ATTACKAPI -Category -Technique
 
+ID                  : {T1001}
+Bypass              : {}
+Contributor         : {}
+Requires System     : {}
+Description         : {Command and control (C2) communications are hidden (but not
+                      necessarily encrypted) in an attempt to make the content more
+                      difficult to discover or decipher and to make the communication
+                      less conspicuous and hide commands from being seen. This
+                      encompasses many methods, such as adding junk data to protocol
+                      traffic, using steganography, commingling legitimate traffic with
+                      C2 communications traffic, or using a non-standard data encoding
+                      system, such as a modified Base64 encoding for the message body
+                      of an HTTP request.}
+Mitigation          : {Network intrusion detection and prevention systems that use
+                      network signatures to identify traffic for specific adversary
+                      malware can be used to mitigate activity at the network level.
+                      Signatures are often for unique indicators within protocols and
+                      may be based on the specific obfuscation technique used by a
+                      particular adversary or tool, and will likely be different across
+                      various malware families and versions. Adversaries will likely
+                      change tool C2 signatures over time or construct protocols in
+                      such a way as to avoid detection by common defensive
+                      tools.University of Birmingham C2}
+Tactic              : Command and Control
+Analytic Details    : {Analyze network data for uncommon data flows (e.g., a client
+                      sending significantly more data than it receives from a server).
+                      Processes utilizing the network that do not normally have network
+                      communication or have never been seen before are suspicious.
+                      Analyze packet contents to detect communications that do not
+                      follow the expected protocol behavior for the port that is being
+                      used.University of Birmingham C2}
+Technique Name      : {Data Obfuscation}
+FullText            : Technique/T1001
+Link Text           : {[[Technique/T1001|Data Obfuscation]]}
+Reference           : {University of Birmingham C2, FireEye APT28, Axiom, FireEye
+                      APT30...}
+Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012,
+                      Windows XP...}
+Name                : {Data Obfuscation}
+CAPEC ID            : {}
+Requires Permission : {}
+DataSource          : {Packet capture, Process use of network, Process monitoring,
+                      Network protocol analysis}
+URL                 : https://attack.mitre.org/wiki/Technique/T1001
 
-URL             : https://attack.mitre.org/wiki/Technique/T1001
-ID              : {T1001}
-Tactic          : Command and Control
-AnalyticDetails : {Analyze network data for uncommon data flows (e.g., a client sending significantly more data than it receives from a
-                  server). Processes utilizing the network that do not normally have network communication or have never been seen befor
-                  are suspicious. Analyze packet contents to detect communications that do not follow the expected protocol behavior for
-                  the port that is being used.University of Birmingham C2}
-RequiresSystem  : {}
-FullText        : Technique/T1001
-Bypass          : {}
-Name            : {Data Obfuscation}
-Description     : {Command and control (C2) communications are hidden (but not necessarily encrypted) in an attempt to make the content
-                  more difficult to discover or decipher and to make the communication less conspicuous and hide commands from being see
-                  This encompasses many methods, such as adding junk data to protocol traffic, using steganography, commingling legitima
-                  traffic with C2 communications traffic, or using a non-standard data encoding system, such as a modified Base64 encodi
-                  for the message body of an HTTP request.}
-Mitigation      : {Network intrusion detection and prevention systems that use network signatures to identify traffic for specific
-                  adversary malware can be used to mitigate activity at the network level. Signatures are often for unique indicators
-                  within protocols and may be based on the specific obfuscation technique used by a particular adversary or tool, and wi
-                  likely be different across various malware families and versions. Adversaries will likely change tool C2 signatures ov
-                  time or construct protocols in such a way as to avoid detection by common defensive tools.University of Birmingham C2}
-Platform        : {Windows Server 2003, Windows Server 2008, Windows Server 2012, Windows XP...}
-Reference       : {University of Birmingham C2, FireEye APT28, Axiom, FireEye APT30...}
+.............
+..................
 
-URL             : https://attack.mitre.org/wiki/Technique/T1002
-ID              : {T1002}
-Tactic          : Exfiltration
-AnalyticDetails : {Compression software and compressed files can be detected in many ways. Common utilities that may be present on the
-                  system or brought in by an adversary may be detectable through process monitoring and monitoring for command-line
-                  arguments for known compression utilities. This may yield a significant amount of benign events, depending on how
-                  systems in the environment are typically used.
+
+ID                  : {T1068}
+Bypass              : {Anti-virus, System access controls}
+Contributor         : {John Lambert, Microsoft Threat Intelligence Center}
+Requires System     : {Unpatched software or otherwise vulnerable target. Depending on
+                      the target and goal, the system and exploitable service may need
+                      to be remotely accessible from the internal network. In the case
+                      of privilege escalation, the adversary likely already has user
+                      permissions on the target system.}
+Description         : {Exploitation of a software vulnerability occurs when an
+                      adversary takes advantage of a programming error in a program,
+                      service, or within the operating system software or kernel itself
+                      to execute adversary-controlled code. Exploiting software
+                      vulnerabilities may allow adversaries to run a command or binary
+                      on a remote system for lateral movement, escalate a current
+                      process to a higher privilege level, or bypass security
+                      mechanisms. Exploits may also allow an adversary access to
+                      privileged accounts and credentials. One example of this is
+                      MS14-068, which can be used to forge Kerberos tickets using
+                      domain user permissions.Technet MS14-068ADSecurity Detecting
+                      Forged Tickets}
+Mitigation          : {Update software regularly by employing patch management for
+                      internal enterprise endpoints and servers. Develop a robust cyber
+                      threat intelligence capability to determine what types and levels
+                      of threat may use software exploits and 0-days against a
+                      particular organization. Make it difficult for adversaries to
+                      advance their operation through exploitation of undiscovered or
+                      unpatched vulnerabilities by using sandboxing, virtualization,
+                      and exploit prevention tools such as the Microsoft Enhanced
+                      Mitigation Experience Toolkit.SRD EMET}
+Tactic              : {Credential Access, Defense Evasion, Lateral Movement, Privilege
+                      Escalation}
+Analytic Details    : {Software exploits may not always succeed or may cause the
+                      exploited process to become unstable or crash. Software and
+                      operating system crash reports may contain useful contextual
+                      information about attempted exploits that correlate with other
+                      malicious activity. Exploited processes may exhibit behavior that
+                      is unusual for the specific process, such as spawning additional
+                      processes or reading and writing to files.}
+Technique Name      : {Exploitation of Vulnerability}
+FullText            : Technique/T1068
+Link Text           : {[[Technique/T1068|Exploitation of Vulnerability]]}
+Reference           : {ADSecurity Detecting Forged Tickets, Bitdefender APT28 Dec 2015,
+                      ESET Sednit July 2015, ESET Sednit Part 1...}
+Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012,
+                      Windows XP...}
+Name                : {Exploitation of Vulnerability}
+CAPEC ID            : {69}
+Requires Permission : {User, Administrator, SYSTEM}
+DataSource          : {Windows Error Reporting, File monitoring, Process monitoring}
+URL                 : https://attack.mitre.org/wiki/Technique/T1068
 
 .EXAMPLE
 This query matches the page Technique with ID T1014
 
 Invoke-ATTACKAPI -Category -Technique -ID T1014
 
-URL             : https://attack.mitre.org/wiki/Technique/T1014
-ID              : {T1014}
-Tactic          : Defense Evasion
-AnalyticDetails : {Some rootkit protections may be built into anti-virus or operating system software. There are dedicated rootkit
-                  detection tools that look for specific types of rootkit behavior. Monitor for the existence of unrecognized DLLs,
-                  devices, services, and changes to the MBR.Wikipedia Rootkit}
-RequiresSystem  : {}
-FullText        : Technique/T1014
-Bypass          : {Anti-virus, File monitoring, Host intrusion prevention systems, Process whitelisting...}
-Name            : {Rootkit}
-Description     : {Rootkits are programs that hide the existence of malware by intercepting and modifying operating system API calls t
-                  supply system information. Rootkits or rootkit enabling functionality may reside at the user or kernel level in the
-                  operating system or lower, to include a [[Technique/T1062|Hypervisor]], Master Boot Record, or the
-                  [[Technique/T1019|System Firmware]].Wikipedia Rootkit
+ID                  : {T1014}
+Bypass              : {Anti-virus, File monitoring, Host intrusion prevention systems,
+                      Process whitelisting...}
+Contributor         : {}
+Requires System     : {}
+Description         : {Rootkits are programs that hide the existence of malware by
+                      intercepting and modifying operating system API calls that supply
+                      system information. Rootkits or rootkit enabling functionality
+                      may reside at the user or kernel level in the operating system or
+                      lower, to include a [[Technique/T1062|Hypervisor]], Master Boot
+                      Record, or the [[Technique/T1019|System Firmware]].Wikipedia
+                      Rootkit
 
-                  Adversaries may use rootkits to hide the presence of programs, files, network connections, services, drivers, and ot
-                  system components.}
-Mitigation      : {Identify potentially malicious software that may contain rootkit functionality, and audit and/or block it by using
-                  whitelistingBeechey 2010 tools, like AppLocker,Windows Commands JPCERTNSA MS AppLocker or Software Restriction
-                  PoliciesCorio 2008 where appropriate.TechNet Applocker vs SRP}
-Platform        : {Windows Server 2003, Windows Server 2008, Windows Server 2012, Windows XP...}
-Reference       : {Wikipedia Rootkit, Beechey 2010, Windows Commands JPCERT, NSA MS AppLocker...}
-
+                      Adversaries may use rootkits to hide the presence of programs,
+                      files, network connections, services, drivers, and other system
+                      components.}
+Mitigation          : {Identify potentially malicious software that may contain rootkit
+                      functionality, and audit and/or block it by using
+                      whitelistingBeechey 2010 tools, like AppLocker,Windows Commands
+                      JPCERTNSA MS AppLocker or Software Restriction PoliciesCorio 2008
+                      where appropriate.TechNet Applocker vs SRP}
+Tactic              : Defense Evasion
+Analytic Details    : {Some rootkit protections may be built into anti-virus or
+                      operating system software. There are dedicated rootkit detection
+                      tools that look for specific types of rootkit behavior. Monitor
+                      for the existence of unrecognized DLLs, devices, services, and
+                      changes to the MBR.Wikipedia Rootkit}
+Technique Name      : {Rootkit}
+FullText            : Technique/T1014
+Link Text           : {[[Technique/T1014|Rootkit]]}
+Reference           : {Wikipedia Rootkit, Beechey 2010, Windows Commands JPCERT, NSA MS
+                      AppLocker...}
+Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012,
+                      Windows XP...}
+Name                : {Rootkit}
+CAPEC ID            : {}
+Requires Permission : {Administrator, SYSTEM}
+DataSource          : {BIOS, MBR, System calls}
+URL                 : https://attack.mitre.org/wiki/Technique/T1014
 
 .EXAMPLE
 This query matches against all the group that use a specific software (in this case Cobalt Strike)
@@ -171,26 +254,31 @@ SYNTAX: "Software: <tool name>"
 
 Invoke-ATTACKAPI -Category -Group -Tool "Software: Cobalt Strike"
 
-URL           : https://attack.mitre.org/wiki/Group/G0050
+Tool          : {Software: Cobalt Strike, Software: KOMPROGO, Software: WINDSHIELD,
+                Software: SOUNDBITE...}
 Alias         : {APT32, OceanLotus Group}
 ID            : {G0050}
-Tool          : {Software: Cobalt Strike, Software: KOMPROGO, Software: WINDSHIELD, Software: SOUNDBITE...}
-TechniqueID   : {Technique/T1053, Technique/T1117, Technique/T1086, Technique/T1094...}
+URL           : https://attack.mitre.org/wiki/Group/G0050
+TechniqueName : {Scheduled Task, Regsvr32, PowerShell, Custom Command and Control
+                Protocol...}
 FullText      : Group/G0050
-Name          : {APT32}
-Description   : {[[Group/G0050|APT32]] is a threat group that has been active since at least 2014. The group has targeted multiple private
-                sector industries as well as with foreign governments, dissidents, and journalists. The group's operations are aligned
-                with Vietnamese state interests.FireEye APT32 May 2017}
-TechniqueName : {Scheduled Task, Regsvr32, PowerShell, Custom Command and Control Protocol...}
 Reference     : {FireEye APT32 May 2017, GitHub Malleable C2, GitHub Invoke-Obfuscation}
+Name          : {APT32}
+Description   : {[[Group/G0050|APT32]] is a threat group that has been active since at
+                least 2014. The group has targeted multiple private sector industries
+                as well as with foreign governments, dissidents, and journalists. The
+                group's operations are aligned with Vietnamese state interests.FireEye
+                APT32 May 2017}
+TechniqueID   : {Technique/T1053, Technique/T1117, Technique/T1086, Technique/T1094...}
+Link Text     : {[[Group/G0050|APT32]]}
 
 .EXAMPLE
 [BETA] Exporting custom results to a CSV
 
 PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | select @{Name="Name"; Ex
 pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
-ription"; Expression={$_.Description -join ","}}, @{Name="Analyticdetails"; Expression={$_.AnalyticDetails -join ","}}, @{Name="DataSource";
- Expression={$_.DataSource -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
+ription"; Expression={$_.Description -join ","}}, @{Name="Analytic details"; Expression={$_.'Analytic Details' -join ","}}, @{Name="Data Source";
+ Expression={$_.'Data Source' -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
 
 .EXAMPLE
 Show up to date ATT&CK Matrix for Enterprise
@@ -923,9 +1011,9 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
             {
                 write-host "`n[+++] Collecting $cat `n" -ForegroundColor Green
                 if ($cat -eq 'Tactic'){$LookUpQuery = "[[Category:$cat]]|?Has description|?Citation reference|limit=9999"}
-                elseif ($cat -eq 'Technique'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has display name|?Has technical description|?Requires system|?Has mitigation|?Has analytic details|?Has tactic|?Has data source|?Bypasses defense|?Has platform|?Citation reference|limit=9999"}
-                elseif ($cat -eq 'Group'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has display name|?Has alias|?Has description|?Has technique|?Uses software|?Citation reference|?Has URL|limit=9999"}
-                elseif ($cat -eq 'Software'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has display name|?Has description|?Has technique|?Has platform|?Has software type|?Has software page|?Citation reference|limit=9999"}
+                elseif ($cat -eq 'Technique'){$LookUpQuery = "[[Category:$cat]]|?Has CAPEC ID|?Has ID|?Has analytic details|?Has contributor|?Has data source|?Has display name|?Has link text|?Has mitigation|?Has platform|?Has tactic|?Has technical description|?Has technique name|?Requires permissions|?Requires system|?Bypasses defense|?Citation reference|limit=9999"}
+                elseif ($cat -eq 'Group'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has alias|?Has description|?Has display name|?Has link text|?Has technique|?Uses software|?Citation reference|?Has URL|limit=9999"}
+                elseif ($cat -eq 'Software'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has alias|?Has description|?Has display name|?Has link text|?Has software type|?Has technique|?Citation reference|limit=9999"}
                 elseif ($cat -eq 'Reference'){$LookUpQuery = "[[Citation text::+]]|?Citation key|?Citation text|?Has title|?Has authors|?Retrieved on|?Has URL|limit=9999"}
 
                 $LookUpURL = 'https://attack.mitre.org/api.php?action=ask&format=json&query='
@@ -942,17 +1030,22 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                     $Props = @{
                         'FullText' = $object.fulltext
                         'URL' = $object.fullurl
+						'CAPEC ID' = $object.printouts.'Has CAPEC ID'
                         'ID' = $object.printouts.'Has ID'
+						'Analytic Details' = $object.printouts.'Has analytic details'
+						'Contributor' = $object.printouts.'Has contributor'
+						'Data Source' = $object.printouts.'Has data source'
                         'Name' = $object.printouts.'Has display name'
+						'Link Text' = $object.printouts.'Has link text'
+						'Mitigation' = $object.printouts.'Has mitigation'
+						'Platform' = $object.printouts.'Has platform'
                         'Tactic' = $object.printouts.'Has tactic'.fulltext
                         'Description' = $object.printouts.'Has technical description'
+						'Technique Name' = $object.printouts.'Has technique name'
+						'Requires Permission' = $object.printouts.'Requires permissions'
+						'Requires System' = $object.printouts.'Requires system'
                         'Bypass' = $object.printouts.'Bypasses defense'
-                        'Mitigation' = $object.printouts.'Has mitigation'
-                        'RequiresSystem' = $object.printouts.'Requires system'
-                        'AnalyticDetails' = $object.printouts.'Has analytic details'
-                        'Platform' = $object.printouts.'Has platform'
                         'Reference' = $object.printouts.'Citation reference'
-                        'DataSource' = $object.printouts.'Has data source'
                         }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         $Collection += $TotalObjects
@@ -960,15 +1053,16 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                     if($Cat -eq 'Group'){
                         $Props = @{
                             'FullText' = $object.fulltext
-                            'URL' = $object.fullurl
                             'ID' = $object.printouts.'Has ID'
+							'Alias' = $object.printouts.'Has alias'
+							'Description' = $object.printouts.'Has Description'
                             'Name' = $object.printouts.'Has display name'
-                            'Alias' = $object.printouts.'Has alias'
-                            'Description' = $object.printouts.'Has Description'
-                            'TechniqueID' = $object.printouts.'Has technique'.fulltext
-                            'TechniqueName' = $object.printouts.'Has technique'.displaytitle
+							'Link Text' = $object.printouts.'Has link text'
+							'TechniqueName' = $object.printouts.'Has technique'.displaytitle
+							'Tool' = $object.printouts.'Uses software'.displaytitle
+                            'TechniqueID' = $object.printouts.'Has technique'.fulltext                         
+							'URL' = $object.fullurl
                             'Reference' = $object.printouts.'Citation reference'
-                            'Tool' = $object.printouts.'Uses software'.displaytitle
                             }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         $Collection += $TotalObjects
@@ -976,14 +1070,17 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                     if($Cat -eq 'Software'){
                         $Props = @{
                             'FullText' = $object.fulltext
-                            'URL' = $object.fullurl
                             'ID' = $object.printouts.'Has ID'
-                            'Name' = $object.printouts.'Has display name'
+							'Alias' = $object.printouts.'Has alias'
                             'Description' = $object.printouts.'Has Description'
-                            'TechniqueID' = $object.printouts.'Has technique'.fulltext
+							'Name' = $object.printouts.'Has display name'
+							'Link Text' = $object.printouts.'Has link text'
+							'Software Type' = $object.printouts.'Has software type'
                             'TechniqueName' = $object.printouts.'Has technique'.displaytitle
-                            'Reference' = $object.printouts.'Citation reference'
                             'Type' = $object.printouts.'Has software type'
+							'TechniqueID' = $object.printouts.'Has technique'.fulltext
+							'URL' = $object.fullurl
+							'Reference' = $object.printouts.'Citation reference'
                             }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         $Collection += $TotalObjects
