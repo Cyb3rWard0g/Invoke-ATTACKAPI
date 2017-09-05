@@ -724,32 +724,32 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
            {
                 $Property = "Fulltext"
                 $match = "$($DynParam1.value)"
-                $Query = $ATTCKLookUp.Technique | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Technique | ? -Property $Property -eq $match
 
            }
            elseif ($DynParam2.IsSet)
            {
                 $Property = "ID"
                 $match = "$($DynParam2.value)"
-                $Query = $ATTCKLookUp.Technique | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Technique | ? -Property $Property -eq $match
            }
            elseif ($DynParam3.IsSet)
            {
                 $Property = "Name"
                 $match = "$($DynParam3.value)"
-                $Query = $ATTCKLookUp.Technique | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Technique | ? -Property $Property -eq $match
            }
            elseif ($DynParam4.IsSet)
            {
                 $Property = "Tactic"
                 $match = "$($DynParam4.value)"
-                $Query = $ATTCKLookUp.Technique | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Technique | ? -Property $Property -eq $match
            }
            elseif ($DynParam5.IsSet)
            {
                 $Property = "Platform"
                 $match = "$($DynParam5.value)"
-                $Query = $ATTCKLookUp.Technique | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Technique | ? -Property $Property -eq $match
            }
            else
            {
@@ -761,43 +761,43 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
            {
                 $Property = "Fulltext"
                 $match = "$($DynParam1.value)"
-                $Query = $ATTCKLookUp.Group| ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Group| ? -Property $Property -eq $match
            }
            elseif ($DynParam2.IsSet)
            {
                 $Property = "ID"
                 $match = "$($DynParam2.value)"
-                $Query = $ATTCKLookUp.Group | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Group | ? -Property $Property -eq $match
            }
            elseif ($DynParam3.IsSet)
            {
                 $Property = "Name"
                 $match = "$($DynParam3.value)"
-                $Query = $ATTCKLookUp.Group | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Group | ? -Property $Property -eq $match
            }
            elseif ($DynParam4.IsSet)
            {
                 $Property = "Alias"
                 $match = "$($DynParam4.value)"
-                $Query = $ATTCKLookUp.Group | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Group | ? -Property $Property -eq $match
            }
            elseif ($DynParam5.IsSet)
            {
                 $Property = "TechniqueID"
                 $match = "$($DynParam5.value)"
-                $Query = $ATTCKLookUp.Group | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Group | ? -Property $Property -eq $match
            }
            elseif ($DynParam6.IsSet)
            {
                 $Property = "TechniqueName"
                 $match = "$($DynParam6.value)"
-                $Query = $ATTCKLookUp.Group | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Group | ? -Property $Property -eq $match
            }
            elseif ($DynParam7.IsSet)
            {
                 $Property = "Tool"
                 $match = "$($DynParam7.value)"
-                $Query = $ATTCKLookUp.Group | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Group | ? -Property $Property -eq $match
            }
            else
            {
@@ -809,37 +809,37 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
            {
                 $Property = "Fulltext"
                 $match = "$($DynParam1.value)"
-                $Query = $ATTCKLookUp.Software| ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Software| ? -Property $Property -eq $match
            }
            elseif ($DynParam2.IsSet)
            {
                 $Property = "ID"
                 $match = "$($DynParam2.value)"
-                $Query = $ATTCKLookUp.Software | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Software | ? -Property $Property -eq $match
            }
            elseif ($DynParam3.IsSet)
            {
                 $Property = "Name"
                 $match = "$($DynParam3.value)"
-                $Query = $ATTCKLookUp.Software | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Software | ? -Property $Property -eq $match
            }
            elseif ($DynParam4.IsSet)
            {
                 $Property = "TechniqueID"
                 $match = "$($DynParam4.value)"
-                $Query = $ATTCKLookUp.Software | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Software | ? -Property $Property -eq $match
            }
            elseif ($DynParam5.IsSet)
            {
                 $Property = "TechniqueName"
                 $match = "$($DynParam5.value)"
-                $Query = $ATTCKLookUp.Software | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Software | ? -Property $Property -eq $match
            }
            elseif ($DynParam6.IsSet)
            {
                 $Property = "Type"
                 $match = "$($DynParam6.value)"
-                $Query = $ATTCKLookUp.Software | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Software | ? -Property $Property -eq $match
            }
            else
            {
@@ -851,7 +851,7 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
            {
                 $Property = "Fulltext"
                 $match = "$($DynParam1.value)"
-                $Query = $ATTCKLookUp.Tactic| ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Tactic| ? -Property $Property -eq $match
            }
            else
            {
@@ -864,37 +864,37 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
            {
                 $Property = "Fulltext"
                 $match = "$($DynParam1.value)"
-                $Query = $ATTCKLookUp.Reference| ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Reference| ? -Property $Property -eq $match
            }
            elseif ($DynParam2.IsSet)
            {
                 $Property = "Key"
                 $match = "$($DynParam2.value)"
-                $Query = $ATTCKLookUp.Reference | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Reference | ? -Property $Property -eq $match
            }
            elseif ($DynParam3.IsSet)
            {
                 $Property = "Name"
                 $match = "$($DynParam3.value)"
-                $Query = $ATTCKLookUp.Reference | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Reference | ? -Property $Property -eq $match
            }
            elseif ($DynParam4.IsSet)
            {
                 $Property = "Author"
                 $match = "$($DynParam4.value)"
-                $Query = $ATTCKLookUp.Reference | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Reference | ? -Property $Property -eq $match
            }
            elseif ($DynParam5.IsSet)
            {
                 $Property = "Date"
                 $match = "$($DynParam5.value)"
-                $Query = $ATTCKLookUp.Reference | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Reference | ? -Property $Property -eq $match
            }
            elseif ($DynParam6.IsSet)
            {
                 $Property = "Year"
                 $match = "$($DynParam6.value)"
-                $Query = $ATTCKLookUp.Reference | ? -Property $Property -Match $match
+                $Query = $ATTCKLookUp.Reference | ? -Property $Property -eq $match
            }
            else
            {
@@ -1035,16 +1035,16 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
             }
             $ATTACKMatrix = New-Object PSCustomObject -Property $MatrixProps
           
-            $ATTACKMatrix.Persistence = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Persistence" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.PrivilegeEscalation = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Privilege Escalation" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.DefenseEvasion = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Defense Evasion" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.CredentialAccess = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Credential Access" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.Discovery = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Discovery"| select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.LateralMovement = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Lateral Movement" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.Execution = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Execution"| select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.Collection = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Collection" | select -ExpandProperty Name | Sort-Object          
-            $ATTACKMatrix.Exfiltration = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Exfiltration" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.CommandControl = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -Match "Command and Control" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Persistence = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Persistence" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.PrivilegeEscalation = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Privilege Escalation" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.DefenseEvasion = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Defense Evasion" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.CredentialAccess = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Credential Access" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Discovery = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Discovery"| select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.LateralMovement = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Lateral Movement" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Execution = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Execution"| select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Collection = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Collection" | select -ExpandProperty Name | Sort-Object          
+            $ATTACKMatrix.Exfiltration = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Exfiltration" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.CommandControl = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Command and Control" | select -ExpandProperty Name | Sort-Object
             
             #Source: https://community.spiceworks.com/topic/795591-output-multiple-arrays-as-columns-in-csv
             #Source: https://stackoverflow.com/questions/23411202/powershell-combine-single-arrays-into-columns
