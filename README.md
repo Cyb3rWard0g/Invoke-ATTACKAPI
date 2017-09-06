@@ -49,100 +49,77 @@ ID                  : {T1001}
 Bypass              : {}
 Contributor         : {}
 Requires System     : {}
-Description         : {Command and control (C2) communications are hidden (but not
-                      necessarily encrypted) in an attempt to make the content more
-                      difficult to discover or decipher and to make the communication
-                      less conspicuous and hide commands from being seen. This
-                      encompasses many methods, such as adding junk data to protocol
-                      traffic, using steganography, commingling legitimate traffic with
-                      C2 communications traffic, or using a non-standard data encoding
-                      system, such as a modified Base64 encoding for the message body
-                      of an HTTP request.}
-Mitigation          : {Network intrusion detection and prevention systems that use
-                      network signatures to identify traffic for specific adversary
-                      malware can be used to mitigate activity at the network level.
-                      Signatures are often for unique indicators within protocols and
-                      may be based on the specific obfuscation technique used by a
-                      particular adversary or tool, and will likely be different across
-                      various malware families and versions. Adversaries will likely
-                      change tool C2 signatures over time or construct protocols in
-                      such a way as to avoid detection by common defensive
-                      tools.University of Birmingham C2}
+Data Source         : {Packet capture, Process use of network, Process monitoring, Network protocol analysis}
+Description         : {Command and control (C2) communications are hidden (but not necessarily encrypted) in an
+                      attempt to make the content more difficult to discover or decipher and to make the
+                      communication less conspicuous and hide commands from being seen. This encompasses many
+                      methods, such as adding junk data to protocol traffic, using steganography, commingling
+                      legitimate traffic with C2 communications traffic, or using a non-standard data encoding
+                      system, such as a modified Base64 encoding for the message body of an HTTP request.}
+Mitigation          : {Network intrusion detection and prevention systems that use network signatures to
+                      identify traffic for specific adversary malware can be used to mitigate activity at the
+                      network level. Signatures are often for unique indicators within protocols and may be
+                      based on the specific obfuscation technique used by a particular adversary or tool, and
+                      will likely be different across various malware families and versions. Adversaries will
+                      likely change tool C2 signatures over time or construct protocols in such a way as to
+                      avoid detection by common defensive tools.University of Birmingham C2}
 Tactic              : Command and Control
-Analytic Details    : {Analyze network data for uncommon data flows (e.g., a client
-                      sending significantly more data than it receives from a server).
-                      Processes utilizing the network that do not normally have network
-                      communication or have never been seen before are suspicious.
-                      Analyze packet contents to detect communications that do not
-                      follow the expected protocol behavior for the port that is being
-                      used.University of Birmingham C2}
+Analytic Details    : {Analyze network data for uncommon data flows (e.g., a client sending significantly more
+                      data than it receives from a server). Processes utilizing the network that do not normally
+                      have network communication or have never been seen before are suspicious. Analyze packet
+                      contents to detect communications that do not follow the expected protocol behavior for
+                      the port that is being used.University of Birmingham C2}
 Technique Name      : {Data Obfuscation}
 FullText            : Technique/T1001
 Link Text           : {[[Technique/T1001|Data Obfuscation]]}
-Reference           : {University of Birmingham C2, FireEye APT28, Axiom, FireEye
-                      APT30...}
-Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012,
-                      Windows XP...}
+Reference           : {University of Birmingham C2, FireEye APT28, Axiom, FireEye APT30...}
+Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012, Windows XP...}
 Name                : {Data Obfuscation}
 CAPEC ID            : {}
 Requires Permission : {}
-DataSource          : {Packet capture, Process use of network, Process monitoring,
-                      Network protocol analysis}
 URL                 : https://attack.mitre.org/wiki/Technique/T1001
 
 .............
 ..................
 
-
 ID                  : {T1068}
 Bypass              : {Anti-virus, System access controls}
 Contributor         : {John Lambert, Microsoft Threat Intelligence Center}
-Requires System     : {Unpatched software or otherwise vulnerable target. Depending on
-                      the target and goal, the system and exploitable service may need
-                      to be remotely accessible from the internal network. In the case
-                      of privilege escalation, the adversary likely already has user
+Requires System     : {Unpatched software or otherwise vulnerable target. Depending on the target and goal, the
+                      system and exploitable service may need to be remotely accessible from the internal
+                      network. In the case of privilege escalation, the adversary likely already has user
                       permissions on the target system.}
-Description         : {Exploitation of a software vulnerability occurs when an
-                      adversary takes advantage of a programming error in a program,
-                      service, or within the operating system software or kernel itself
-                      to execute adversary-controlled code. Exploiting software
-                      vulnerabilities may allow adversaries to run a command or binary
-                      on a remote system for lateral movement, escalate a current
-                      process to a higher privilege level, or bypass security
-                      mechanisms. Exploits may also allow an adversary access to
-                      privileged accounts and credentials. One example of this is
-                      MS14-068, which can be used to forge Kerberos tickets using
-                      domain user permissions.Technet MS14-068ADSecurity Detecting
-                      Forged Tickets}
-Mitigation          : {Update software regularly by employing patch management for
-                      internal enterprise endpoints and servers. Develop a robust cyber
-                      threat intelligence capability to determine what types and levels
-                      of threat may use software exploits and 0-days against a
-                      particular organization. Make it difficult for adversaries to
-                      advance their operation through exploitation of undiscovered or
-                      unpatched vulnerabilities by using sandboxing, virtualization,
-                      and exploit prevention tools such as the Microsoft Enhanced
-                      Mitigation Experience Toolkit.SRD EMET}
-Tactic              : {Credential Access, Defense Evasion, Lateral Movement, Privilege
-                      Escalation}
-Analytic Details    : {Software exploits may not always succeed or may cause the
-                      exploited process to become unstable or crash. Software and
-                      operating system crash reports may contain useful contextual
-                      information about attempted exploits that correlate with other
-                      malicious activity. Exploited processes may exhibit behavior that
-                      is unusual for the specific process, such as spawning additional
-                      processes or reading and writing to files.}
+Data Source         : {Windows Error Reporting, File monitoring, Process monitoring}
+Description         : {Exploitation of a software vulnerability occurs when an adversary takes advantage of a
+                      programming error in a program, service, or within the operating system software or kernel
+                      itself to execute adversary-controlled code. Exploiting software vulnerabilities may allow
+                      adversaries to run a command or binary on a remote system for lateral movement, escalate a
+                      current process to a higher privilege level, or bypass security mechanisms. Exploits may
+                      also allow an adversary access to privileged accounts and credentials. One example of this
+                      is MS14-068, which can be used to forge Kerberos tickets using domain user
+                      permissions.Technet MS14-068ADSecurity Detecting Forged Tickets}
+Mitigation          : {Update software regularly by employing patch management for internal enterprise endpoints
+                      and servers. Develop a robust cyber threat intelligence capability to determine what types
+                      and levels of threat may use software exploits and 0-days against a particular
+                      organization. Make it difficult for adversaries to advance their operation through
+                      exploitation of undiscovered or unpatched vulnerabilities by using sandboxing,
+                      virtualization, and exploit prevention tools such as the Microsoft Enhanced Mitigation
+                      Experience Toolkit.SRD EMET}
+Tactic              : {Credential Access, Defense Evasion, Lateral Movement, Privilege Escalation}
+Analytic Details    : {Software exploits may not always succeed or may cause the exploited process to become
+                      unstable or crash. Software and operating system crash reports may contain useful
+                      contextual information about attempted exploits that correlate with other malicious
+                      activity. Exploited processes may exhibit behavior that is unusual for the specific
+                      process, such as spawning additional processes or reading and writing to files.}
 Technique Name      : {Exploitation of Vulnerability}
 FullText            : Technique/T1068
 Link Text           : {[[Technique/T1068|Exploitation of Vulnerability]]}
-Reference           : {ADSecurity Detecting Forged Tickets, Bitdefender APT28 Dec 2015,
-                      ESET Sednit July 2015, ESET Sednit Part 1...}
-Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012,
-                      Windows XP...}
+Reference           : {ADSecurity Detecting Forged Tickets, Bitdefender APT28 Dec 2015, ESET Sednit July 2015,
+                      ESET Sednit Part 1...}
+Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012, Windows XP...}
 Name                : {Exploitation of Vulnerability}
 CAPEC ID            : {69}
 Requires Permission : {User, Administrator, SYSTEM}
-DataSource          : {Windows Error Reporting, File monitoring, Process monitoring}
 URL                 : https://attack.mitre.org/wiki/Technique/T1068
 ```
 
@@ -151,43 +128,35 @@ URL                 : https://attack.mitre.org/wiki/Technique/T1068
 Invoke-ATTACKAPI -Category -Technique -ID T1014
 
 ID                  : {T1014}
-Bypass              : {Anti-virus, File monitoring, Host intrusion prevention systems,
-                      Process whitelisting...}
+Bypass              : {Anti-virus, File monitoring, Host intrusion prevention systems, Process whitelisting...}
 Contributor         : {}
 Requires System     : {}
-Description         : {Rootkits are programs that hide the existence of malware by
-                      intercepting and modifying operating system API calls that supply
-                      system information. Rootkits or rootkit enabling functionality
-                      may reside at the user or kernel level in the operating system or
-                      lower, to include a [[Technique/T1062|Hypervisor]], Master Boot
-                      Record, or the [[Technique/T1019|System Firmware]].Wikipedia
-                      Rootkit
+Data Source         : {BIOS, MBR, System calls}
+Description         : {Rootkits are programs that hide the existence of malware by intercepting and modifying
+                      operating system API calls that supply system information. Rootkits or rootkit enabling
+                      functionality may reside at the user or kernel level in the operating system or lower, to
+                      include a [[Technique/T1062|Hypervisor]], Master Boot Record, or the
+                      [[Technique/T1019|System Firmware]].Wikipedia Rootkit
 
-                      Adversaries may use rootkits to hide the presence of programs,
-                      files, network connections, services, drivers, and other system
-                      components.}
-Mitigation          : {Identify potentially malicious software that may contain rootkit
-                      functionality, and audit and/or block it by using
-                      whitelistingBeechey 2010 tools, like AppLocker,Windows Commands
-                      JPCERTNSA MS AppLocker or Software Restriction PoliciesCorio 2008
-                      where appropriate.TechNet Applocker vs SRP}
+                      Adversaries may use rootkits to hide the presence of programs, files, network connections,
+                      services, drivers, and other system components.}
+Mitigation          : {Identify potentially malicious software that may contain rootkit functionality, and audit
+                      and/or block it by using whitelistingBeechey 2010 tools, like AppLocker,Windows Commands
+                      JPCERTNSA MS AppLocker or Software Restriction PoliciesCorio 2008 where
+                      appropriate.TechNet Applocker vs SRP}
 Tactic              : Defense Evasion
-Analytic Details    : {Some rootkit protections may be built into anti-virus or
-                      operating system software. There are dedicated rootkit detection
-                      tools that look for specific types of rootkit behavior. Monitor
-                      for the existence of unrecognized DLLs, devices, services, and
-                      changes to the MBR.Wikipedia Rootkit}
+Analytic Details    : {Some rootkit protections may be built into anti-virus or operating system software. There
+                      are dedicated rootkit detection tools that look for specific types of rootkit behavior.
+                      Monitor for the existence of unrecognized DLLs, devices, services, and changes to the
+                      MBR.Wikipedia Rootkit}
 Technique Name      : {Rootkit}
 FullText            : Technique/T1014
 Link Text           : {[[Technique/T1014|Rootkit]]}
-Reference           : {Wikipedia Rootkit, Beechey 2010, Windows Commands JPCERT, NSA MS
-                      AppLocker...}
-Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012,
-                      Windows XP...}
+Reference           : {Wikipedia Rootkit, Beechey 2010, Windows Commands JPCERT, NSA MS AppLocker...}
+Platform            : {Windows Server 2003, Windows Server 2008, Windows Server 2012, Windows XP...}
 Name                : {Rootkit}
 CAPEC ID            : {}
 Requires Permission : {Administrator, SYSTEM}
-DataSource          : {BIOS, MBR, System calls}
 URL                 : https://attack.mitre.org/wiki/Technique/T1014
 ```
 
@@ -195,33 +164,31 @@ URL                 : https://attack.mitre.org/wiki/Technique/T1014
 ```
 Invoke-ATTACKAPI -Category -Group -Tool "Software: Cobalt Strike"
 
-Tool          : {Software: Cobalt Strike, Software: KOMPROGO, Software: WINDSHIELD,
-                Software: SOUNDBITE...}
+Tool          : {Software: Cobalt Strike, Software: KOMPROGO, Software: WINDSHIELD, Software: SOUNDBITE...}
 Alias         : {APT32, OceanLotus Group}
 ID            : {G0050}
 URL           : https://attack.mitre.org/wiki/Group/G0050
-TechniqueName : {Scheduled Task, Regsvr32, PowerShell, Custom Command and Control
-                Protocol...}
+TechniqueName : {Scheduled Task, Regsvr32, PowerShell, Custom Command and Control Protocol...}
 FullText      : Group/G0050
 Reference     : {FireEye APT32 May 2017, GitHub Malleable C2, GitHub Invoke-Obfuscation}
 Name          : {APT32}
-Description   : {[[Group/G0050|APT32]] is a threat group that has been active since at
-                least 2014. The group has targeted multiple private sector industries
-                as well as with foreign governments, dissidents, and journalists. The
-                group's operations are aligned with Vietnamese state interests.FireEye
-                APT32 May 2017}
+Description   : {[[Group/G0050|APT32]] is a threat group that has been active since at least 2014. The group has
+                targeted multiple private sector industries as well as with foreign governments, dissidents, and
+                journalists. The group's operations are aligned with Vietnamese state interests.FireEye APT32
+                May 2017}
 TechniqueID   : {Technique/T1053, Technique/T1117, Technique/T1086, Technique/T1094...}
 Link Text     : {[[Group/G0050|APT32]]}
-
 ```
 
 ### [BETA] Exporting custom results to a CSV
 ```
-PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | select @{Name="Name"; Ex
-pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
-ription"; Expression={$_.Description -join ","}}, @{Name="Analytic details"; Expression={$_.'Analytic Details' -join ","}}, @{Name="Data Source";
- Expression={$_.'Data Source' -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
+PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | 
+select @{Name="Name"; Expression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, 
+@{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Description"; Expression={$_.Description -join ","}}, 
+@{Name="Analytic details"; Expression={$_.'Analytic Details' -join ","}}, @{Name="Data Source";
+Expression={$_.'Data Source' -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
 ```
+
 ### Showing an up to date ATT&CK Matrix for Enterprise
 ```
 Invoke-ATTACKAPI -Matrix | select Persistence, 'Privilege Escalation', 'Defense Evasion','Credential Access', Discovery, 'Lateral Movement', Execution, Collection, Exfiltration, 'Command and Control' | ft
@@ -277,7 +244,9 @@ Winlogon Helper DLL                                                             
 
 ### Getting an up to date ATT&CK Matrix for Enterprise and exporting it to a csv
 ```
-Invoke-ATTACKAPI -Matrix | select Persistence, 'Privilege Escalation', 'Defense Evasion','Credential Access', Discovery, 'Lateral Movement', Execution, Collection, Exfiltration, 'Command and Control' | Export-Csv C:\wardog\scripts\matrix.csv -NoTypeInformation
+Invoke-ATTACKAPI -Matrix | select Persistence, 'Privilege Escalation', 'Defense Evasion','Credential Access', Discovery,
+'Lateral Movement', Execution, Collection, Exfiltration, 'Command and Control' | 
+Export-Csv C:\wardog\scripts\matrix.csv -NoTypeInformation
 ```
 
 # Author
