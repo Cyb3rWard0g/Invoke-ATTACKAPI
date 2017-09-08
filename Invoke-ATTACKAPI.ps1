@@ -1,11 +1,10 @@
 ﻿function Invoke-ATTACKAPI
 {
-
 <#
-.Synopsis
+.SYNOPSIS
 A PS script to interact with the MITRE ATT&CK Framework via its own API
 
-.Description
+.DESCRIPTION
 Use this script to interact with the MITRE ATT&CK Framework via its API and gather information about techniques, 
 tactics, groups, software and references provided by the MITRE ATT&CK Team @MITREattack 
 
@@ -50,6 +49,9 @@ Page Selector to show all Tactics at once with their respective properties.
 
 .PARAMETER Reference
 Page Selector to show all References at once with their respective properties.
+
+.PARAMETER Attribution
+Switch used to display a table with techniques and Tools attributed to a specific Group/APT .
 
 .PARAMETER FullText
 Depending on what page selector you choose, the values of this parameter vary. 
@@ -96,12 +98,12 @@ Available only with Reference page selector.
 
 .PARAMETER Year
 Available only with Reference page selector.
-   
 
 .EXAMPLE
 This query matches all techniques
 
 Invoke-ATTACKAPI -Category -Technique
+
 ID                  : {T1001}
 Bypass              : {}
 Contributor         : {}
@@ -240,10 +242,10 @@ Link Text     : {[[Group/G0050|APT32]]}
 .EXAMPLE
 [BETA] Exporting custom results to a CSV
 
-PS C:\HIVE\github\Invoke-ATTACKAPI> Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | select @{Name="Name"; Ex
-pression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, @{Name="Desc
-ription"; Expression={$_.Description -join ","}}, @{Name="Analytic details"; Expression={$_.'Analytic Details' -join ","}}, @{Name="Data Source";
- Expression={$_.'Data Source' -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
+Invoke-ATTACKAPI -Category -Technique | where-object -Property ID -GE "T1134" | 
+select @{Name="Name"; Expression={$_.Name -join ","}}, @{Name="Tactic"; Expression={$_.Tactic -join ","}}, @{Name ="ID"; Expression={$_.ID -join ","}}, 
+@{Name="Description"; Expression={$_.Description -join ","}}, @{Name="Analytic details"; Expression={$_.'Analytic Details' -join ","}}, 
+@{Name="Data Source";Expression={$_.'Data Source' -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
 
 .EXAMPLE
 Show up to date ATT&CK Matrix for Enterprise
@@ -297,11 +299,74 @@ Web Shell                                                                       
 Windows Management Instrumentation Event Subscription                                       Timestomp
 Winlogon Helper DLL                                                                         Trusted Developer Utilities
                                                                                             Valid Accounts
-
 .EXAMPLE
 Show up to date ATT&CK Matrix for Enterprise and export it to a CSV (Technique Names are retrieved as Strings)
 
 Invoke-ATTACKAPI -Matrix | select Persistence, 'Privilege Escalation', 'Defense Evasion','Credential Access', Discovery, 'Lateral Movement', Execution, Collection, Exfiltration, 'Command and Control' | Export-Csv C:\wardog\scripts\matrix.csv -NoTypeInformation
+
+.EXAMPLE
+Show an up to date table of Groups/APTs with the techniques and tools attributed to them
+
+Invoke-ATTACKAPI -Attribution | ft
+
+Group             Group Alias                                                Group ID TechniqueName                                         FullText        Tool                                                 Description
+-----             -----------                                                -------- -------------                                         --------        ----                                                 -----------
+admin@338         admin@338                                                  G0018    Windows Admin Shares                                  Technique/T1077 Software: Net, net.exe                               {Lateral movement can be done with [[Software/S0039|Net]] ...
+admin@338         admin@338                                                  G0018    System Network Connections Discovery                  Technique/T1049 Software: Net, net.exe                               {Commands such as <code>net use</code> and <code>net sessi...
+admin@338         admin@338                                                  G0018    Network Share Connection Removal                      Technique/T1126 Software: Net, net.exe                               {The <code>net use \\system\share /delete</code> command c...
+admin@338         admin@338                                                  G0018    Standard Non-Application Layer Protocol               Technique/T1095 Software: BUBBLEWRAP, Backdoor.APT.FakeWinHTTPHelper {[[Software/S0043|BUBBLEWRAP]] can communicate using SOCKS...
+admin@338         admin@338                                                  G0018    Account Discovery                                     Technique/T1087 Software: Net, net.exe                               {Commands under <code>net user</code> can be used in [[Sof...
+admin@338         admin@338                                                  G0018    System Time Discovery                                 Technique/T1124 Software: Net, net.exe                               {The <code>net time</code> command can be used in [[Softwa...
+admin@338         admin@338                                                  G0018    Permission Groups Discovery                           Technique/T1069 Software: Net, net.exe                               {Commands such as <code>net group</code> and <code>net loc...
+admin@338         admin@338                                                  G0018    System Service Discovery                              Technique/T1007 Software: Net, net.exe                               {The <code>net start</code> command can be used in [[Softw...
+admin@338         admin@338                                                  G0018    Network Share Discovery                               Technique/T1135 Software: Net, net.exe                               {The <code>net view \\remotesystem</code> and <code>net sh...
+admin@338         admin@338                                                  G0018    Remote System Discovery                               Technique/T1018 Software: Net, net.exe                               {Commands such as <code>net view</code> can be used in [[S...
+admin@338         admin@338                                                  G0018    Create Account                                        Technique/T1136 Software: Net, net.exe                               {The <code>net user username \password</code> and <code>ne...
+admin@338         admin@338                                                  G0018    System Information Discovery                          Technique/T1082 Software: BUBBLEWRAP, Backdoor.APT.FakeWinHTTPHelper {[[Software/S0043|BUBBLEWRAP]] collects system information...
+admin@338         admin@338                                                  G0018    Command-Line Interface                                Technique/T1059                                                      {Following exploitation with [[Software/S0042|LOWBALL]] ma...
+admin@338         admin@338                                                  G0018    System Service Discovery                              Technique/T1007                                                      {[[Group/G0018|admin@338]] actors used the following comma...
+admin@338         admin@338                                                  G0018    Masquerading                                          Technique/T1036                                                      {[[Group/G0018|admin@338]] actors used the following comma...
+admin@338         admin@338                                                  G0018    Account Discovery                                     Technique/T1087                                                      {[[Group/G0018|admin@338]] actors used the following comma...
+admin@338         admin@338                                                  G0018    System Network Connections Discovery                  Technique/T1049                                                      {[[Group/G0018|admin@338]] actors used the following comma...
+admin@338         admin@338                                                  G0018    Permission Groups Discovery                           Technique/T1069                                                      {[[Group/G0018|admin@338]] actors used the following comma...
+admin@338         admin@338                                                  G0018    System Information Discovery                          Technique/T1082 Software: Systeminfo, systeminfo.exe                 {[[Software/S0096|Systeminfo]] can be used to gather infor...
+admin@338         admin@338                                                  G0018    Standard Application Layer Protocol                   Technique/T1071 Software: BUBBLEWRAP, Backdoor.APT.FakeWinHTTPHelper {[[Software/S0043|BUBBLEWRAP]] can communicate using HTTP ...
+admin@338         admin@338                                                  G0018    System Network Connections Discovery                  Technique/T1049 Software: netstat, netstat.exe                       {[[Software/S0104|netstat]] can be used to enumerate local...
+admin@338         admin@338                                                  G0018    System Information Discovery                          Technique/T1082                                                      {[[Group/G0018|admin@338]] actors used the following comma...
+admin@338         admin@338                                                  G0018    System Network Configuration Discovery                Technique/T1016 Software: ipconfig, ipconfig.exe                     {[[Software/S0100|ipconfig]] can be used to display adapte...
+admin@338         admin@338                                                  G0018    Web Service                                           Technique/T1102 Software: LOWBALL                                    {[[Software/S0042|LOWBALL]] uses the Dropbox cloud storage...
+admin@338         admin@338                                                  G0018    Commonly Used Port                                    Technique/T1043 Software: LOWBALL                                    {[[Software/S0042|LOWBALL]] command and control occurs via...
+admin@338         admin@338                                                  G0018    Remote File Copy                                      Technique/T1105 Software: LOWBALL                                    {[[Software/S0042|LOWBALL]] uses the Dropbox API to  reque...
+admin@338         admin@338                                                  G0018    File and Directory Discovery                          Technique/T1083                                                      {[[Group/G0018|admin@338]] actors used the following comma...
+admin@338         admin@338                                                  G0018    System Network Configuration Discovery                Technique/T1016                                                      {[[Group/G0018|admin@338]] actors used the following comma...
+admin@338         admin@338                                                  G0018    Service Execution                                     Technique/T1035 Software: Net, net.exe                               {The <code>net start</code> and <code>net stop</code> comm...
+admin@338         admin@338                                                  G0018    Standard Cryptographic Protocol                       Technique/T1032 Software: PoisonIvy, Poison Ivy                      {[[Software/S0012|PoisonIvy]] uses the Camellia cipher to ...
+admin@338         admin@338                                                  G0018    Input Capture                                         Technique/T1056 Software: PoisonIvy, Poison Ivy                      {[[Software/S0012|PoisonIvy]] contains a keylogger.FireEye...
+admin@338         admin@338                                                  G0018    Standard Application Layer Protocol                   Technique/T1071 Software: LOWBALL                                    {[[Software/S0042|LOWBALL]] command and control occurs via...
+admin@338         admin@338                                                  G0018    DLL Injection                                         Technique/T1055 Software: PoisonIvy, Poison Ivy                      {[[Software/S0012|PoisonIvy]] can load DLLs.FireEye Poison...
+APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Service Execution                                     Technique/T1035 Software: xCmd                                       {[[Software/S0123|xCmd]] can be used to execute binaries o...
+APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Standard Cryptographic Protocol                       Technique/T1032 Software: PoisonIvy, Poison Ivy                      {[[Software/S0012|PoisonIvy]] uses the Camellia cipher to ...
+APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Credential Dumping                                    Technique/T1003 Software: Lslsass                                    {[[Software/S0121|Lslsass]] can dump active logon session ...
+APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Credential Dumping                                    Technique/T1003 Software: Mimikatz                                   {[[Software/S0002|Mimikatz]] performs credential dumping t...
+APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Network Share Discovery                               Technique/T1135 Software: Net, net.exe                               {The <code>net view \\remotesystem</code> and <code>net sh...
+APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Create Account                                        Technique/T1136 Software: Net, net.exe                               {The <code>net user username \password</code> and <code>ne...
+
+.EXAMPLE
+Show an up to date table of the techniques and tools attributed to APT with Group ID G0051 (FIN10)
+
+Invoke-ATTACKAPI -Attribution | Where-Object -Property 'Group ID' -EQ 'G0051' | ft
+
+Group Group Alias Group ID TechniqueName                    FullText        Description
+----- ----------- -------- -------------                    --------        -----------
+FIN10 FIN10       G0051    PowerShell                       Technique/T1086 {[[Group/G0051|FIN10]] uses PowerShell for execution as well as PowerShell Empire to establish persistence.FireEye FIN10 June 2017Github PowerShell Empire}
+FIN10 FIN10       G0051    System Owner/User Discovery      Technique/T1033 {[[Group/G0051|FIN10]] has used Meterpreter to enumerate users on remote systems.FireEye FIN10 June 2017}
+FIN10 FIN10       G0051    Valid Accounts                   Technique/T1078 {[[Group/G0051|FIN10]] has used stolen credentials to connect remotely to victim networks using VPNs protected with only a single factor. The group has also moved laterally using the Local Ad...
+FIN10 FIN10       G0051    File Deletion                    Technique/T1107 {[[Group/G0051|FIN10]] has used batch scripts and scheduled tasks to delete critical system files.FireEye FIN10 June 2017}
+FIN10 FIN10       G0051    Registry Run Keys / Start Folder Technique/T1060 {[[Group/G0051|FIN10]] has established persistence by using the Registry option in PowerShell Empire to add a Run key.FireEye FIN10 June 2017Github PowerShell Empire}
+FIN10 FIN10       G0051    Scripting                        Technique/T1064 {[[Group/G0051|FIN10]] has executed malicious .bat files containing PowerShell commands.FireEye FIN10 June 2017}
+FIN10 FIN10       G0051    Remote File Copy                 Technique/T1105 {[[Group/G0051|FIN10]] has deployed Meterpreter stagers and SplinterRAT instances in the victim network after moving laterally.FireEye FIN10 June 2017}
+FIN10 FIN10       G0051    Scheduled Task                   Technique/T1053 {[[Group/G0051|FIN10]] has established persistence by using S4U tasks as well as the Scheduled Task option in PowerShell Empire.FireEye FIN10 June 2017Github PowerShell Empire}
+FIN10 FIN10       G0051    Remote Desktop Protocol          Technique/T1076 {[[Group/G0051|FIN10]] has used RDP to move laterally to systems in the victim environment.FireEye FIN10 June 2017}
 
 .LINK
 https://github.com/Cyb3rWard0g/Invoke-ATTACKAPI
@@ -336,7 +401,10 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
         [switch]$Sync,
         
         [Parameter(Position=0,Mandatory=$true,ParameterSetname='ATTACKMatrix')]
-        [switch]$Matrix   
+        [switch]$Matrix,
+        
+        [Parameter(Position=0,Mandatory=$true,ParameterSetname='ATTCKAttribution')]
+        [switch]$Attribution   
     )
 
     DynamicParam
@@ -953,23 +1021,34 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                 $Query = $ATTCKLookUp.Reference
            }
         }
+        if($PSCmdlet.ParameterSetName -eq 'ATTACKMatrix'){
+           $Techniques = $ATTCKLookUp.Technique 
+        }
+        if($PSCmdlet.ParameterSetName -eq 'ATTCKAttribution'){
+           $hastechnique = $ATTCKLookUp.'Techniques subobjects'
+           $groups = $ATTCKLookUp.Group
+           $TechniquesList = $ATTCKLookUp.Technique
+                     
+        }
+
     }
     Process
     {       
         If($PSCmdlet.ParameterSetName -eq 'SyncATTCK')
         {
-            write-host "[++] Pulling MITRE ATT&CK Data" -ForegroundColor Cyan
+            write-host "[++] Pulling MITRE ATT&CK Data" -ForegroundColor Yellow
             $Props = @{
                 'Tactic' = $Null
                 'Technique'= $Null
                 'Group'= $Null
                 'Software'= $Null
                 'Reference'= $Null
+                'Techniques subobjects'= $Null
             }
 
             $Script:ATTCKLookUp = New-Object PSCustomObject -Property $Props
 
-            $categories = @('Tactic','Technique','Group','Software','Reference')
+            $categories = @('Tactic','Technique','Group','Software','Reference', 'Techniques subobjects')
     
             foreach ($cat in $categories)
             {
@@ -979,6 +1058,7 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                 elseif ($cat -eq 'Group'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has alias|?Has description|?Has display name|?Has link text|?Has technique|?Uses software|?Citation reference|?Has URL|limit=9999"}
                 elseif ($cat -eq 'Software'){$LookUpQuery = "[[Category:$cat]]|?Has ID|?Has alias|?Has description|?Has display name|?Has link text|?Has software type|?Has technique|?Citation reference|limit=9999"}
                 elseif ($cat -eq 'Reference'){$LookUpQuery = "[[Citation text::+]]|?Citation key|?Citation text|?Has title|?Has authors|?Retrieved on|?Has URL|limit=9999"}
+                elseif ($cat -eq 'Techniques subobjects'){$LookUpQuery = "[[Has technique object::+]]|?Has technique description|?Has technique object|limit=9999"}
 
                 $LookUpURL = 'https://attack.mitre.org/api.php?action=ask&format=json&query='
                 $LookUpEncQuery = [System.Net.WebUtility]::UrlEncode($LookUpQuery)
@@ -991,32 +1071,33 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                 foreach ($object in $results)
                 {                    
                     if($Cat -eq 'Technique'){
-                    $Props = @{
-                        'FullText' = $object.fulltext
-                        'URL' = $object.fullurl
-						'CAPEC ID' = $object.printouts.'Has CAPEC ID'
-                        'ID' = $object.printouts.'Has ID'
-						'Analytic Details' = $object.printouts.'Has analytic details'
-						'Contributor' = $object.printouts.'Has contributor'
-						'Data Source' = $object.printouts.'Has data source'
-                        'Name' = $object.printouts.'Has display name'
-						'Link Text' = $object.printouts.'Has link text'
-						'Mitigation' = $object.printouts.'Has mitigation'
-						'Platform' = $object.printouts.'Has platform'
-                        'Tactic' = $object.printouts.'Has tactic'.fulltext
-                        'Description' = $object.printouts.'Has technical description'
-						'Technique Name' = $object.printouts.'Has technique name'
-						'Requires Permission' = $object.printouts.'Requires permissions'
-						'Requires System' = $object.printouts.'Requires system'
-                        'Bypass' = $object.printouts.'Bypasses defense'
-                        'Reference' = $object.printouts.'Citation reference'
-                        }
-                        $TotalObjects = New-Object PSCustomObject -Property $Props
-                        $Collection += $TotalObjects
+                        $Props = @{
+                            'FullText' = $object.fulltext
+                            'URL' = $object.fullurl
+						    'CAPEC ID' = $object.printouts.'Has CAPEC ID'
+                            'ID' = $object.printouts.'Has ID'
+						    'Analytic Details' = $object.printouts.'Has analytic details'
+						    'Contributor' = $object.printouts.'Has contributor'
+						    'Data Source' = $object.printouts.'Has data source'
+                            'Name' = $object.printouts.'Has display name'
+						    'Link Text' = $object.printouts.'Has link text'
+						    'Mitigation' = $object.printouts.'Has mitigation'
+						    'Platform' = $object.printouts.'Has platform'
+                            'Tactic' = $object.printouts.'Has tactic'.fulltext
+                            'Description' = $object.printouts.'Has technical description'
+						    'Technique Name' = $object.printouts.'Has technique name'
+						    'Requires Permission' = $object.printouts.'Requires permissions'
+						    'Requires System' = $object.printouts.'Requires system'
+                            'Bypass' = $object.printouts.'Bypasses defense'
+                            'Reference' = $object.printouts.'Citation reference'
+                            }
+                            $TotalObjects = New-Object PSCustomObject -Property $Props
+                            $Collection += $TotalObjects
                     }
                     if($Cat -eq 'Group'){
                         $Props = @{
                             'FullText' = $object.fulltext
+                            'Display Title' = $object.displaytitle
                             'ID' = $object.printouts.'Has ID'
 							'Alias' = $object.printouts.'Has alias'
 							'Description' = $object.printouts.'Has Description'
@@ -1027,10 +1108,10 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                             'TechniqueID' = $object.printouts.'Has technique'.fulltext                         
 							'URL' = $object.fullurl
                             'Reference' = $object.printouts.'Citation reference'
-                            }
+                        }   
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         $Collection += $TotalObjects
-                        }
+                    }
                     if($Cat -eq 'Software'){
                         $Props = @{
                             'FullText' = $object.fulltext
@@ -1045,20 +1126,20 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
 							'TechniqueID' = $object.printouts.'Has technique'.fulltext
 							'URL' = $object.fullurl
 							'Reference' = $object.printouts.'Citation reference'
-                            }
+                        }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         $Collection += $TotalObjects
-                        }
+                    }
                     if($Cat -eq 'Tactic'){
                         $Props = @{
                             'Reference' = $object.printouts.'Citation reference'
                             'URL' = $object.fullurl
                             'Description' = $object.printouts.'Has Description'
                             'FullText' = $object.fulltext
-                            }
+                        }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         $Collection += $TotalObjects
-                        }
+                    }
                     if($Cat -eq 'Reference'){
                         $Props = @{
                             'Fulltext' = $object.fulltext
@@ -1070,11 +1151,22 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                             'Year' = $object.printouts.'Citation text'.replace('(v=ws.10)','').split('(')[1].split(')')[0].split(',')[0]
                             'Retrieved' = $object.printouts.'Retrieved on'.fulltext
                             'URL' = $object.printouts.'Has URL'.fulltext
-                            }
+                        }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         IF($TotalObjects.date -notmatch '\d\d\d\d'){$TotalObjects.date = 'n.d.'}
                         IF($TotalObjects.Year -notmatch '\d\d\d\d'){$TotalObjects.Year = 'n.d.'}
                         $Collection += $TotalObjects
+                    }
+                    if($cat -eq 'Techniques subobjects'){
+                        $Props = @{
+                            'Display Title' = $object.displaytitle
+							'TechniqueName' = $object.printouts.'Has technique object'.displaytitle
+                            'FullText' = $object.printouts.'Has technique object'.Fulltext
+                            'URL' = $object.printouts.'Has technique object'.Fulltext
+                            'Description' =  $object.printouts.'Has technique description'
+                        }
+                        $TotalObjects = New-Object PSCustomObject -Property $Props
+                        $Collection += $TotalObjects                   
                     }                              
                     $Script:ATTCKLookUp.$cat = $Collection    
                 }
@@ -1096,16 +1188,16 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
             }
             $ATTACKMatrix = New-Object PSCustomObject -Property $MatrixProps
           
-            $ATTACKMatrix.Persistence = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Persistence" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.PrivilegeEscalation = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Privilege Escalation" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.DefenseEvasion = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Defense Evasion" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.CredentialAccess = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Credential Access" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.Discovery = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Discovery"| select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.LateralMovement = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Lateral Movement" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.Execution = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Execution"| select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.Collection = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Collection" | select -ExpandProperty Name | Sort-Object          
-            $ATTACKMatrix.Exfiltration = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Exfiltration" | select -ExpandProperty Name | Sort-Object
-            $ATTACKMatrix.CommandControl = Invoke-ATTACKAPI -Category -Technique | ? -Property Tactic -eq "Command and Control" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Persistence = $Techniques | ? -Property Tactic -eq "Persistence" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.PrivilegeEscalation = $Techniques | ? -Property Tactic -eq "Privilege Escalation" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.DefenseEvasion = $Techniques | ? -Property Tactic -eq "Defense Evasion" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.CredentialAccess = $Techniques | ? -Property Tactic -eq "Credential Access" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Discovery = $Techniques | ? -Property Tactic -eq "Discovery"| select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.LateralMovement = $Techniques | ? -Property Tactic -eq "Lateral Movement" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Execution = $Techniques | ? -Property Tactic -eq "Execution"| select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.Collection = $Techniques | ? -Property Tactic -eq "Collection" | select -ExpandProperty Name | Sort-Object          
+            $ATTACKMatrix.Exfiltration = $Techniques | ? -Property Tactic -eq "Exfiltration" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.CommandControl = $Techniques | ? -Property Tactic -eq "Command and Control" | select -ExpandProperty Name | Sort-Object
             
             #Source: https://community.spiceworks.com/topic/795591-output-multiple-arrays-as-columns-in-csv
             #Source: https://stackoverflow.com/questions/23411202/powershell-combine-single-arrays-into-columns
@@ -1141,6 +1233,19 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
            }
            return $ATTACKMatrixTable
         }
+        elseif($PSCmdlet.ParameterSetName -eq 'ATTCKAttribution')
+        {
+            $AttriBucket = @()
+            foreach ($g in $groups)
+            {
+                foreach ($grouptool in $g.tool)
+                {
+                    $AttriBucket += $hastechnique | where-object {$_.'Display Title' -eq $grouptool} | select @{Name='Group';Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, FullText, @{Name='Tool'; Expression={$grouptool}}, description
+                } 
+                $AttriBucket += $hastechnique | where-object {$_.'Display Title' -eq $g.'Display Title'} | select @{Name='Group'; Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, FullText, description
+            }
+            return $AttriBucket | sort -Property 'Group'
+        }
         else
         {
            return $Query
@@ -1158,10 +1263,11 @@ write-host '
 | $$__  $$   | $$      | $$  | $$  $$_/| $$      | $$  $$        | $$__  $$| $$____/   | $$  
 | $$  | $$   | $$      | $$  | $$\  $$ | $$    $$| $$\  $$       | $$  | $$| $$        | $$  
 | $$  | $$   | $$      | $$  |  $$$$/$$|  $$$$$$/| $$ \  $$      | $$  | $$| $$       /$$$$$$
-|__/  |__/   |__/      |__/   \____/\_/ \______/ |__/  \__/      |__/  |__/|__/      |______/
+|__/  |__/   |__/      |__/   \____/\_/ \______/ |__/  \__/      |__/  |__/|__/      |______/ V.0.9[BETA]
 
-
+            Adversarial Tactics, Techniques & Common Knowledge API' -ForegroundColor Magenta
+write-host '
 [*] Author: Roberto Rodriguez @Cyb3rWard0g
-[*] Version: 0.9 [BETA]
-' -ForegroundColor Magenta
+
+' -ForegroundColor Cyan
 Invoke-ATTACKAPI -Sync
