@@ -243,7 +243,7 @@ Winlogon Helper DLL                                                             
                                                                                             Valid Accounts
 ```
 
-### Getting an up to date ATT&CK Matrix for Enterprise and exporting it to a csv
+### Getting an up to date ATT&CK Matrix for Enterprise and exporting it to a csv file
 ```
 Invoke-ATTACKAPI -Matrix | select Persistence, 'Privilege Escalation', 'Defense Evasion','Credential Access',
 Discovery, 'Lateral Movement', Execution, Collection, Exfiltration, 'Command and Control' | 
@@ -254,8 +254,8 @@ Export-Csv C:\wardog\scripts\matrix.csv -NoTypeInformation
 ```
 Invoke-ATTACKAPI -Attribution | ft
 
-Group             Group Alias                                                Group ID TechniqueName                                         FullText        Tool                                                 Description
------             -----------                                                -------- -------------                                         --------        ----                                                 -----------
+Group             Group Alias                                                Group ID TechniqueName                                         TechniqueID     Tool                                                 Description
+-----             -----------                                                -------- -------------                                         -----------     ----                                                 -----------
 admin@338         admin@338                                                  G0018    Windows Admin Shares                                  Technique/T1077 Software: Net, net.exe                               {Lateral movement can be done with [[Software/S0039|Net]] ...
 admin@338         admin@338                                                  G0018    System Network Connections Discovery                  Technique/T1049 Software: Net, net.exe                               {Commands such as <code>net use</code> and <code>net sessi...
 admin@338         admin@338                                                  G0018    Network Share Connection Removal                      Technique/T1126 Software: Net, net.exe                               {The <code>net use \\system\share /delete</code> command c...
@@ -301,8 +301,8 @@ APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G00
 ```
 Invoke-ATTACKAPI -Attribution | Where-Object -Property 'Group ID' -EQ 'G0051' | ft
 
-Group Group Alias Group ID TechniqueName                    FullText        Description
------ ----------- -------- -------------                    --------        -----------
+Group Group Alias Group ID TechniqueName                    TechniqueID     Description
+----- ----------- -------- -------------                    -----------     -----------
 FIN10 FIN10       G0051    PowerShell                       Technique/T1086 {[[Group/G0051|FIN10]] uses PowerShell for execution as well as PowerShell Empire to establish persistence.FireEye FIN10 June 2017Github PowerShell Empire}
 FIN10 FIN10       G0051    System Owner/User Discovery      Technique/T1033 {[[Group/G0051|FIN10]] has used Meterpreter to enumerate users on remote systems.FireEye FIN10 June 2017}
 FIN10 FIN10       G0051    Valid Accounts                   Technique/T1078 {[[Group/G0051|FIN10]] has used stolen credentials to connect remotely to victim networks using VPNs protected with only a single factor. The group has also moved laterally using the Local Ad...
@@ -313,6 +313,60 @@ FIN10 FIN10       G0051    Remote File Copy                 Technique/T1105 {[[G
 FIN10 FIN10       G0051    Scheduled Task                   Technique/T1053 {[[Group/G0051|FIN10]] has established persistence by using S4U tasks as well as the Scheduled Task option in PowerShell Empire.FireEye FIN10 June 2017Github PowerShell Empire}
 FIN10 FIN10       G0051    Remote Desktop Protocol          Technique/T1076 {[[Group/G0051|FIN10]] has used RDP to move laterally to systems in the victim environment.FireEye FIN10 June 2017}
 ```
+
+### Getting an up to date table of Groups/APTs with the techniques and tools attributed to them and exporting it to a csv file
+```
+Invoke-ATTACKAPI -Attribution | PS C:\HIVE\github\Invoke-ATTACKAPI> $att | select Group, 'Group Alias',
+ 'Group ID', TechniqueName, TechniqueID, Tool, @{Name='Description'; Expression={$_.Description}}, URL |
+ export-csv -NoTypeInformation C:\Documents\ATTACK_Attribution.csv
+```
+
+### Showing an up to date table with all the valuable information from the MITRE ATTACK DB at once
+```
+Invoke-ATTACKAPI -All | ft
+
+Tactic                                                                       TechniqueName                                           TechniqueID     Group             Group Alias                                                Group ID Tool
+------                                                                       -------------                                           -----------     -----             -----------                                                -------- ----
+Collection                                                                   Screen Capture                                          Technique/T1113 APT28             {APT28, Sednit, Sofacy, Pawn Storm...}                     G0007
+Collection                                                                   Screen Capture                                          Technique/T1113 APT28             {APT28, Sednit, Sofacy, Pawn Storm...}                     G0007    Software: XAgentOSX
+Collection                                                                   Data from Local System                                  Technique/T1005 APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006
+Collection                                                                   Screen Capture                                          Technique/T1113 Cleaver           {Cleaver, TG-2889, Threat Group 2889}                      G0003    Software: TinyZBot
+Collection                                                                   Screen Capture                                          Technique/T1113 APT32             {APT32, OceanLotus Group}                                  G0050    Software: Cobalt Strike
+Collection                                                                   Screen Capture                                          Technique/T1113 APT29             {APT29, The Dukes, Cozy Bear}                              G0016    Software: CosmicDuke, TinyBaron,...
+Collection                                                                   Data Staged                                             Technique/T1074 APT30             APT30                                                      G0013    Software: SPACESHIP
+Collection                                                                   Data from Local System                                  Technique/T1005 Ke3chang          Ke3chang                                                   G0004
+Collection                                                                   Data from Local System                                  Technique/T1005 Lazarus Group     {Lazarus Group, HIDDEN COBRA, Guardians of Peace}          G0032
+Collection                                                                   Data from Local System                                  Technique/T1005 APT29             {APT29, The Dukes, Cozy Bear}                              G0016    Software: CosmicDuke, TinyBaron,...
+Collection                                                                   Data from Local System                                  Technique/T1005 APT29             {APT29, The Dukes, Cozy Bear}                              G0016    Software: PinchDuke
+Collection                                                                   Data from Local System                                  Technique/T1005 APT30             APT30                                                      G0013    Software: FLASHFLOOD
+Collection                                                                   Screen Capture                                          Technique/T1113 RTM               RTM                                                        G0048    Software: RTM
+Collection                                                                   Screen Capture                                          Technique/T1113 MONSOON           {MONSOON, Operation Hangover}                              G0042    Software: BADNEWS
+Collection                                                                   Screen Capture                                          Technique/T1113 menuPass          {menuPass, Stone Panda, APT10, Red Apollo...}              G0045    Software: RedLeaves, BUGJUICE
+Collection                                                                   Email Collection                                        Technique/T1114 APT29             {APT29, The Dukes, Cozy Bear}                              G0016    Software: SeaDuke, SeaDaddy, Sea...
+Collection                                                                   Email Collection                                        Technique/T1114 APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006
+Collection                                                                   Screen Capture                                          Technique/T1113 Sandworm Team     {Sandworm Team, Quedagh}                                   G0034    Software: BlackEnergy, Black Energy
+Collection                                                                   Screen Capture                                          Technique/T1113 FIN7              FIN7                                                       G0046    Software: HALFBAKED
+Collection                                                                   Screen Capture                                          Technique/T1113 Dust Storm        Dust Storm                                                 G0031    Software: ZLib
+Collection                                                                   Screen Capture                                          Technique/T1113 Dragonfly         {Dragonfly, Energetic Bear}                                G0035    Software: Trojan.Karagany
+Collection                                                                   Screen Capture                                          Technique/T1113 menuPass          {menuPass, Stone Panda, APT10, Red Apollo...}              G0045    Software: EvilGrab
+Collection                                                                   Screen Capture                                          Technique/T1113 Group5            Group5                                                     G0043
+Collection                                                                   Screen Capture                                          Technique/T1113 Gamaredon Group   Gamaredon Group                                            G0047    Software: Pteranodon
+Collection                                                                   Data Staged                                             Technique/T1074 APT30             APT30                                                      G0013    Software: FLASHFLOOD
+```
+
+### Getting an up to date table with all the valuable information from the MITRE ATTACK DB at once and exporting it to a csv file
+```
+Invoke-ATTACKAPI -All | select @{Name='Tactic'; Expression={$_.tactic -join ','}}, @{Nam
+e='TechniqueName'; Expression={$_.techniquename -join ','}}, techniqueID, group, @{Name='Group Alias'; Expression=
+{$_.'Group alias' -join ','}}, 'Group ID', @{Name='Tool'; Expression={$_.Tool -join ','}}, @{Name='Description'; E
+xpression={$_.Description -join ','}}, @{Name='Data Source'; Expression={$_.'Data Source' -join ','}}, @{Name='Byp
+ass'; Expression={$_.Bypass -join ','}}, @{Name='Analytic Details'; Expression={$_.'Analytic Details' -join ','}},
+ @{Name='Mitigation'; Expression={$_.Mitigation -join ','}}, @{Name='Platform'; Expression={$_.Platform -join ','}
+}, @{Name='Requires Permission'; Expression={$_.'Requires System' -join ','}}, @{Name='CAPEC ID'; Expression={$_.'
+CAPEC ID' -join ','}}, @{Name='Contributor'; Expression={$_.Contributor -join ','}}, @{Name='URL'; Expression={$_.
+URL -join ','}} | Export-Csv -NoTypeInformation C:\\Downloads\ATTACK_ALL.csv
+```
+
 # Author
 * Roberto Rodriguez [@Cyb3rWard0g](https://twitter.com/Cyb3rWard0g)
 # Contributors

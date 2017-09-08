@@ -51,7 +51,10 @@ Page Selector to show all Tactics at once with their respective properties.
 Page Selector to show all References at once with their respective properties.
 
 .PARAMETER Attribution
-Switch used to display a table with techniques and Tools attributed to a specific Group/APT .
+Switch used to display a table with techniques and Tools attributed to a specific Group/APT
+
+.PARAMETER All
+Switch used to get all the valuable information from the MITRE ATTACK DB at once.
 
 .PARAMETER FullText
 Depending on what page selector you choose, the values of this parameter vary. 
@@ -309,8 +312,8 @@ Show an up to date table of Groups/APTs with the techniques and tools attributed
 
 Invoke-ATTACKAPI -Attribution | ft
 
-Group             Group Alias                                                Group ID TechniqueName                                         FullText        Tool                                                 Description
------             -----------                                                -------- -------------                                         --------        ----                                                 -----------
+Group             Group Alias                                                Group ID TechniqueName                                         TechniqueID     Tool                                                 Description
+-----             -----------                                                -------- -------------                                         -----------     ----                                                 -----------
 admin@338         admin@338                                                  G0018    Windows Admin Shares                                  Technique/T1077 Software: Net, net.exe                               {Lateral movement can be done with [[Software/S0039|Net]] ...
 admin@338         admin@338                                                  G0018    System Network Connections Discovery                  Technique/T1049 Software: Net, net.exe                               {Commands such as <code>net use</code> and <code>net sessi...
 admin@338         admin@338                                                  G0018    Network Share Connection Removal                      Technique/T1126 Software: Net, net.exe                               {The <code>net use \\system\share /delete</code> command c...
@@ -356,8 +359,8 @@ Show an up to date table of the techniques and tools attributed to APT with Grou
 
 Invoke-ATTACKAPI -Attribution | Where-Object -Property 'Group ID' -EQ 'G0051' | ft
 
-Group Group Alias Group ID TechniqueName                    FullText        Description
------ ----------- -------- -------------                    --------        -----------
+Group Group Alias Group ID TechniqueName                    TechniqueID     Description
+----- ----------- -------- -------------                    -----------     -----------
 FIN10 FIN10       G0051    PowerShell                       Technique/T1086 {[[Group/G0051|FIN10]] uses PowerShell for execution as well as PowerShell Empire to establish persistence.FireEye FIN10 June 2017Github PowerShell Empire}
 FIN10 FIN10       G0051    System Owner/User Discovery      Technique/T1033 {[[Group/G0051|FIN10]] has used Meterpreter to enumerate users on remote systems.FireEye FIN10 June 2017}
 FIN10 FIN10       G0051    Valid Accounts                   Technique/T1078 {[[Group/G0051|FIN10]] has used stolen credentials to connect remotely to victim networks using VPNs protected with only a single factor. The group has also moved laterally using the Local Ad...
@@ -404,7 +407,10 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
         [switch]$Matrix,
         
         [Parameter(Position=0,Mandatory=$true,ParameterSetname='ATTCKAttribution')]
-        [switch]$Attribution   
+        [switch]$Attribution,
+
+        [Parameter(Position=0,Mandatory=$true,ParameterSetname='ATTCKAll')]
+        [switch]$All   
     )
 
     DynamicParam
@@ -1026,11 +1032,11 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
         }
         if($PSCmdlet.ParameterSetName -eq 'ATTCKAttribution'){
            $hastechnique = $ATTCKLookUp.'Techniques subobjects'
-           $groups = $ATTCKLookUp.Group
-           $TechniquesList = $ATTCKLookUp.Technique
-                     
+           $groups = $ATTCKLookUp.Group                   
         }
-
+        if($PSCmdlet.ParameterSetName -eq 'ATTCKAll'){
+           $TechniquesList = $ATTCKLookUp.Technique
+        }
     }
     Process
     {       
@@ -1085,7 +1091,7 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
 						    'Platform' = $object.printouts.'Has platform'
                             'Tactic' = $object.printouts.'Has tactic'.fulltext
                             'Description' = $object.printouts.'Has technical description'
-						    'Technique Name' = $object.printouts.'Has technique name'
+						    'TechniqueName' = $object.printouts.'Has technique name'
 						    'Requires Permission' = $object.printouts.'Requires permissions'
 						    'Requires System' = $object.printouts.'Requires system'
                             'Bypass' = $object.printouts.'Bypasses defense'
@@ -1161,8 +1167,8 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                         $Props = @{
                             'Display Title' = $object.displaytitle
 							'TechniqueName' = $object.printouts.'Has technique object'.displaytitle
-                            'FullText' = $object.printouts.'Has technique object'.Fulltext
-                            'URL' = $object.printouts.'Has technique object'.Fulltext
+                            'TechniqueID' = $object.printouts.'Has technique object'.Fulltext
+                            'URL' = $object.printouts.'Has technique object'.Fullurl
                             'Description' =  $object.printouts.'Has technique description'
                         }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
@@ -1240,11 +1246,22 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
             {
                 foreach ($grouptool in $g.tool)
                 {
-                    $AttriBucket += $hastechnique | where-object {$_.'Display Title' -eq $grouptool} | select @{Name='Group';Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, FullText, @{Name='Tool'; Expression={$grouptool}}, description
+                    $AttriBucket += $hastechnique | where-object -Property 'Display Title' -EQ $grouptool | select @{Name='Group';Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, TechniqueID, @{Name='Tool'; Expression={$grouptool}}, description, URL
                 } 
-                $AttriBucket += $hastechnique | where-object {$_.'Display Title' -eq $g.'Display Title'} | select @{Name='Group'; Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, FullText, description
+                $AttriBucket += $hastechnique | where-object -Property 'Display Title' -EQ $g.'Display Title' | select @{Name='Group'; Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, TechniqueID, description, URL
             }
-            return $AttriBucket | sort -Property 'Group'
+            return $AttriBucket | sort -Property Group
+        }
+        elseif($PSCmdlet.ParameterSetName -eq 'ATTCKAll')
+        {
+            $AllAttck = @()
+            $HasObject = Invoke-ATTACKAPI -Attribution
+            foreach ($t in $TechniquesList)
+            {
+                $AllAttck += $HasObject | Where-Object -Property TechniqueID -EQ $t.FullText | select @{Name='Tactic'; Expression={$t.Tactic}}, TechniqueName, TechniqueID, Group, 'Group Alias', 'Group ID', Tool, Description, @{Name='Data Source'; Expression={$t.'Data Source'}}, @{Name='Bypass'; Expression={$t.Bypass}}, @{Name='Analytic Details'; Expression={$t.'Analytic Details'}}, @{Name='Mitigation'; Expression={$t.Mitigation}},@{Name='Platform'; Expression={$t.Platform}},@{Name='Requires Permission'; Expression={$t.'Requires Permission'}}, @{Name='Requires System'; Expression={$t.'Requires System'}}, @{Name='Contributor'; Expression={$t.Contributor}}, URL   
+            }
+            $AllAttck += $TechniquesList | select Tactic, TechniqueName, @{Name='TechniqueID'; Expression={$_.FullText}}, Description, 'Data Source', Bypass, 'Analytic Details',Mitigation, Platform,'Requires Permission', 'Requires System','CAPEC ID', Contributor, URL 
+            return $AllAttck | sort -Property Tactic
         }
         else
         {
