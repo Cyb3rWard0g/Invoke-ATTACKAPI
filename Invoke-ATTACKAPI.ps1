@@ -302,6 +302,40 @@ Web Shell                                                                       
 Windows Management Instrumentation Event Subscription                                       Timestomp
 Winlogon Helper DLL                                                                         Trusted Developer Utilities
                                                                                             Valid Accounts
+
+.EXAMPLE
+Showing an up to date table with all the valuable information from the MITRE ATTACK DB at once
+
+Invoke-ATTACKAPI -All | ft
+
+Tactic      TechniqueName           TechniqueID     Group             Group Alias                                         Group ID Tool
+------      -------------           -----------     -----             -----------                                         -------- ----
+Collection  Screen Capture          Technique/T1113 APT28             {APT28, Sednit, Sofacy, Pawn Storm...}              G0007
+Collection  Screen Capture          Technique/T1113 APT28             {APT28, Sednit, Sofacy, Pawn Storm...}              G0007    Software: XAgentOSX
+Collection  Data from Local System  Technique/T1005 APT1              {APT1, Comment Crew, Comment Group, Comment Panda}  G0006
+Collection  Screen Capture          Technique/T1113 Cleaver           {Cleaver, TG-2889, Threat Group 2889}               G0003    Software: TinyZBot
+Collection  Screen Capture          Technique/T1113 APT32             {APT32, OceanLotus Group}                           G0050    Software: Cobalt Strike
+Collection  Screen Capture          Technique/T1113 APT29             {APT29, The Dukes, Cozy Bear}                       G0016    Software: CosmicDuke, TinyBaron,...
+Collection  Data Staged             Technique/T1074 APT30             APT30                                               G0013    Software: SPACESHIP
+Collection  Data from Local System  Technique/T1005 Ke3chang          Ke3chang                                            G0004
+Collection  Data from Local System  Technique/T1005 Lazarus Group     {Lazarus Group, HIDDEN COBRA, Guardians of Peace}   G0032
+Collection  Data from Local System  Technique/T1005 APT29             {APT29, The Dukes, Cozy Bear}                       G0016    Software: CosmicDuke, TinyBaron,...
+Collection  Data from Local System  Technique/T1005 APT29             {APT29, The Dukes, Cozy Bear}                       G0016    Software: PinchDuke
+Collection  Data from Local System  Technique/T1005 APT30             APT30                                               G0013    Software: FLASHFLOOD
+Collection  Screen Capture          Technique/T1113 RTM               RTM                                                 G0048    Software: RTM
+Collection  Screen Capture          Technique/T1113 MONSOON           {MONSOON, Operation Hangover}                       G0042    Software: BADNEWS
+Collection  Screen Capture          Technique/T1113 menuPass          {menuPass, Stone Panda, APT10, Red Apollo...}       G0045    Software: RedLeaves, BUGJUICE
+Collection  Email Collection        Technique/T1114 APT29             {APT29, The Dukes, Cozy Bear}                       G0016    Software: SeaDuke, SeaDaddy, Sea...
+Collection  Email Collection        Technique/T1114 APT1              {APT1, Comment Crew, Comment Group, Comment Panda}  G0006
+Collection  Screen Capture          Technique/T1113 Sandworm Team     {Sandworm Team, Quedagh}                            G0034    Software: BlackEnergy, Black Energy
+Collection  Screen Capture          Technique/T1113 FIN7              FIN7                                                G0046    Software: HALFBAKED
+Collection  Screen Capture          Technique/T1113 Dust Storm        Dust Storm                                          G0031    Software: ZLib
+Collection  Screen Capture          Technique/T1113 Dragonfly         {Dragonfly, Energetic Bear}                         G0035    Software: Trojan.Karagany
+Collection  Screen Capture          Technique/T1113 menuPass          {menuPass, Stone Panda, APT10, Red Apollo...}       G0045    Software: EvilGrab
+Collection  Screen Capture          Technique/T1113 Group5            Group5                                              G0043
+Collection  Screen Capture          Technique/T1113 Gamaredon Group   Gamaredon Group                                     G0047    Software: Pteranodon
+Collection  Data Staged             Technique/T1074 APT30             APT30                                               G0013    Software: FLASHFLOOD
+
 .EXAMPLE
 Show up to date ATT&CK Matrix for Enterprise and export it to a CSV (Technique Names are retrieved as Strings)
 
@@ -312,64 +346,80 @@ Show an up to date table of Groups/APTs with the techniques and tools attributed
 
 Invoke-ATTACKAPI -Attribution | ft
 
-Group             Group Alias                                                Group ID TechniqueName                                         TechniqueID     Tool                                                 Description
------             -----------                                                -------- -------------                                         -----------     ----                                                 -----------
-admin@338         admin@338                                                  G0018    Windows Admin Shares                                  Technique/T1077 Software: Net, net.exe                               {Lateral movement can be done with [[Software/S0039|Net]] ...
-admin@338         admin@338                                                  G0018    System Network Connections Discovery                  Technique/T1049 Software: Net, net.exe                               {Commands such as <code>net use</code> and <code>net sessi...
-admin@338         admin@338                                                  G0018    Network Share Connection Removal                      Technique/T1126 Software: Net, net.exe                               {The <code>net use \\system\share /delete</code> command c...
-admin@338         admin@338                                                  G0018    Standard Non-Application Layer Protocol               Technique/T1095 Software: BUBBLEWRAP, Backdoor.APT.FakeWinHTTPHelper {[[Software/S0043|BUBBLEWRAP]] can communicate using SOCKS...
-admin@338         admin@338                                                  G0018    Account Discovery                                     Technique/T1087 Software: Net, net.exe                               {Commands under <code>net user</code> can be used in [[Sof...
-admin@338         admin@338                                                  G0018    System Time Discovery                                 Technique/T1124 Software: Net, net.exe                               {The <code>net time</code> command can be used in [[Softwa...
-admin@338         admin@338                                                  G0018    Permission Groups Discovery                           Technique/T1069 Software: Net, net.exe                               {Commands such as <code>net group</code> and <code>net loc...
-admin@338         admin@338                                                  G0018    System Service Discovery                              Technique/T1007 Software: Net, net.exe                               {The <code>net start</code> command can be used in [[Softw...
-admin@338         admin@338                                                  G0018    Network Share Discovery                               Technique/T1135 Software: Net, net.exe                               {The <code>net view \\remotesystem</code> and <code>net sh...
-admin@338         admin@338                                                  G0018    Remote System Discovery                               Technique/T1018 Software: Net, net.exe                               {Commands such as <code>net view</code> can be used in [[S...
-admin@338         admin@338                                                  G0018    Create Account                                        Technique/T1136 Software: Net, net.exe                               {The <code>net user username \password</code> and <code>ne...
-admin@338         admin@338                                                  G0018    System Information Discovery                          Technique/T1082 Software: BUBBLEWRAP, Backdoor.APT.FakeWinHTTPHelper {[[Software/S0043|BUBBLEWRAP]] collects system information...
-admin@338         admin@338                                                  G0018    Command-Line Interface                                Technique/T1059                                                      {Following exploitation with [[Software/S0042|LOWBALL]] ma...
-admin@338         admin@338                                                  G0018    System Service Discovery                              Technique/T1007                                                      {[[Group/G0018|admin@338]] actors used the following comma...
-admin@338         admin@338                                                  G0018    Masquerading                                          Technique/T1036                                                      {[[Group/G0018|admin@338]] actors used the following comma...
-admin@338         admin@338                                                  G0018    Account Discovery                                     Technique/T1087                                                      {[[Group/G0018|admin@338]] actors used the following comma...
-admin@338         admin@338                                                  G0018    System Network Connections Discovery                  Technique/T1049                                                      {[[Group/G0018|admin@338]] actors used the following comma...
-admin@338         admin@338                                                  G0018    Permission Groups Discovery                           Technique/T1069                                                      {[[Group/G0018|admin@338]] actors used the following comma...
-admin@338         admin@338                                                  G0018    System Information Discovery                          Technique/T1082 Software: Systeminfo, systeminfo.exe                 {[[Software/S0096|Systeminfo]] can be used to gather infor...
-admin@338         admin@338                                                  G0018    Standard Application Layer Protocol                   Technique/T1071 Software: BUBBLEWRAP, Backdoor.APT.FakeWinHTTPHelper {[[Software/S0043|BUBBLEWRAP]] can communicate using HTTP ...
-admin@338         admin@338                                                  G0018    System Network Connections Discovery                  Technique/T1049 Software: netstat, netstat.exe                       {[[Software/S0104|netstat]] can be used to enumerate local...
-admin@338         admin@338                                                  G0018    System Information Discovery                          Technique/T1082                                                      {[[Group/G0018|admin@338]] actors used the following comma...
-admin@338         admin@338                                                  G0018    System Network Configuration Discovery                Technique/T1016 Software: ipconfig, ipconfig.exe                     {[[Software/S0100|ipconfig]] can be used to display adapte...
-admin@338         admin@338                                                  G0018    Web Service                                           Technique/T1102 Software: LOWBALL                                    {[[Software/S0042|LOWBALL]] uses the Dropbox cloud storage...
-admin@338         admin@338                                                  G0018    Commonly Used Port                                    Technique/T1043 Software: LOWBALL                                    {[[Software/S0042|LOWBALL]] command and control occurs via...
-admin@338         admin@338                                                  G0018    Remote File Copy                                      Technique/T1105 Software: LOWBALL                                    {[[Software/S0042|LOWBALL]] uses the Dropbox API to  reque...
-admin@338         admin@338                                                  G0018    File and Directory Discovery                          Technique/T1083                                                      {[[Group/G0018|admin@338]] actors used the following comma...
-admin@338         admin@338                                                  G0018    System Network Configuration Discovery                Technique/T1016                                                      {[[Group/G0018|admin@338]] actors used the following comma...
-admin@338         admin@338                                                  G0018    Service Execution                                     Technique/T1035 Software: Net, net.exe                               {The <code>net start</code> and <code>net stop</code> comm...
-admin@338         admin@338                                                  G0018    Standard Cryptographic Protocol                       Technique/T1032 Software: PoisonIvy, Poison Ivy                      {[[Software/S0012|PoisonIvy]] uses the Camellia cipher to ...
-admin@338         admin@338                                                  G0018    Input Capture                                         Technique/T1056 Software: PoisonIvy, Poison Ivy                      {[[Software/S0012|PoisonIvy]] contains a keylogger.FireEye...
-admin@338         admin@338                                                  G0018    Standard Application Layer Protocol                   Technique/T1071 Software: LOWBALL                                    {[[Software/S0042|LOWBALL]] command and control occurs via...
-admin@338         admin@338                                                  G0018    DLL Injection                                         Technique/T1055 Software: PoisonIvy, Poison Ivy                      {[[Software/S0012|PoisonIvy]] can load DLLs.FireEye Poison...
-APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Service Execution                                     Technique/T1035 Software: xCmd                                       {[[Software/S0123|xCmd]] can be used to execute binaries o...
-APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Standard Cryptographic Protocol                       Technique/T1032 Software: PoisonIvy, Poison Ivy                      {[[Software/S0012|PoisonIvy]] uses the Camellia cipher to ...
-APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Credential Dumping                                    Technique/T1003 Software: Lslsass                                    {[[Software/S0121|Lslsass]] can dump active logon session ...
-APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Credential Dumping                                    Technique/T1003 Software: Mimikatz                                   {[[Software/S0002|Mimikatz]] performs credential dumping t...
-APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Network Share Discovery                               Technique/T1135 Software: Net, net.exe                               {The <code>net view \\remotesystem</code> and <code>net sh...
-APT1              {APT1, Comment Crew, Comment Group, Comment Panda}         G0006    Create Account                                        Technique/T1136 Software: Net, net.exe                               {The <code>net user username \password</code> and <code>ne...
+Group     Group Alias                                        Group ID Tactic                                  TechniqueName                           TechniqueID     Tool
+-----     -----------                                        -------- ------                                  -------------                           -----------     ----
+admin@338 admin@338                                          G0018    Discovery                               System Time Discovery                   Technique/T1124 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Defense Evasion                         Network Share Connection Removal        Technique/T1126 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Command and Control                     Commonly Used Port                      Technique/T1043 Software: LOWBALL
+admin@338 admin@338                                          G0018    {Command and Control, Lateral Movement} Remote File Copy                        Technique/T1105 Software: LOWBALL
+admin@338 admin@338                                          G0018    Discovery                               System Network Connections Discovery    Technique/T1049 Software: netstat, netstat.exe
+admin@338 admin@338                                          G0018    Discovery                               System Information Discovery            Technique/T1082 Software: BUBBLEWRAP, Backdoor.APT...
+admin@338 admin@338                                          G0018    Discovery                               Account Discovery                       Technique/T1087
+admin@338 admin@338                                          G0018    Execution                               Command-Line Interface                  Technique/T1059
+admin@338 admin@338                                          G0018    Discovery                               System Service Discovery                Technique/T1007
+admin@338 admin@338                                          G0018    Defense Evasion                         Masquerading                            Technique/T1036
+admin@338 admin@338                                          G0018    Discovery                               Remote System Discovery                 Technique/T1018 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Discovery                               System Network Connections Discovery    Technique/T1049 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Lateral Movement                        Windows Admin Shares                    Technique/T1077 Software: Net, net.exe
+admin@338 admin@338                                          G0018    {Defense Evasion, Privilege Escalation} DLL Injection                           Technique/T1055 Software: PoisonIvy, Poison Ivy
+admin@338 admin@338                                          G0018    Discovery                               System Service Discovery                Technique/T1007 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Discovery                               Account Discovery                       Technique/T1087 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Command and Control                     Standard Non-Application Layer Protocol Technique/T1095 Software: BUBBLEWRAP, Backdoor.APT...
+admin@338 admin@338                                          G0018    Discovery                               System Information Discovery            Technique/T1082 Software: Systeminfo, systeminfo.exe
+admin@338 admin@338                                          G0018    Credential Access                       Create Account                          Technique/T1136 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Discovery                               Permission Groups Discovery             Technique/T1069
+admin@338 admin@338                                          G0018    Discovery                               Network Share Discovery                 Technique/T1135 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Command and Control                     Web Service                             Technique/T1102 Software: LOWBALL
+admin@338 admin@338                                          G0018    Execution                               Service Execution                       Technique/T1035 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Discovery                               File and Directory Discovery            Technique/T1083
+admin@338 admin@338                                          G0018    Discovery                               Permission Groups Discovery             Technique/T1069 Software: Net, net.exe
+admin@338 admin@338                                          G0018    Discovery                               System Network Connections Discovery    Technique/T1049
+admin@338 admin@338                                          G0018    Discovery                               System Information Discovery            Technique/T1082
+admin@338 admin@338                                          G0018    Command and Control                     Standard Application Layer Protocol     Technique/T1071 Software: LOWBALL
+admin@338 admin@338                                          G0018    Command and Control                     Standard Cryptographic Protocol         Technique/T1032 Software: PoisonIvy, Poison Ivy
+admin@338 admin@338                                          G0018    {Collection, Credential Access}         Input Capture                           Technique/T1056 Software: PoisonIvy, Poison Ivy
+admin@338 admin@338                                          G0018    Command and Control                     Standard Application Layer Protocol     Technique/T1071 Software: BUBBLEWRAP, Backdoor.APT...
+admin@338 admin@338                                          G0018    Discovery                               System Network Configuration Discovery  Technique/T1016 Software: ipconfig, ipconfig.exe
+admin@338 admin@338                                          G0018    Discovery                               System Network Configuration Discovery  Technique/T1016
+APT1      {APT1, Comment Crew, Comment Group, Comment Panda} G0006    Collection                              Data from Local System                  Technique/T1005
+APT1      {APT1, Comment Crew, Comment Group, Comment Panda} G0006    Execution                               Service Execution                       Technique/T1035 Software: xCmd
+APT1      {APT1, Comment Crew, Comment Group, Comment Panda} G0006    Lateral Movement                        Pass the Hash                           Technique/T1075 Software: Pass-The-Hash Toolkit
+APT1      {APT1, Comment Crew, Comment Group, Comment Panda} G0006    Execution                               Service Execution                       Technique/T1035 Software: Net, net.exe
+APT1      {APT1, Comment Crew, Comment Group, Comment Panda} G0006    Discovery                               Remote System Discovery                 Technique/T1018 Software: Net, net.exe
+APT1      {APT1, Comment Crew, Comment Group, Comment Panda} G0006    Collection                              Email Collection                        Technique/T1114
+APT1      {APT1, Comment Crew, Comment Group, Comment Panda} G0006    Lateral Movement                        Pass the Hash                           Technique/T1075
 
 .EXAMPLE
-Show an up to date table of the techniques and tools attributed to APT with Group ID G0051 (FIN10)
+Show an up to date table of the techniques and tools attributed to APT with Group ID G0046 (FIN7)
 
-Invoke-ATTACKAPI -Attribution | Where-Object -Property 'Group ID' -EQ 'G0051' | ft
+Invoke-ATTACKAPI -Attribution | Where-Object -Property 'Group ID' -EQ 'G0046' | ft
 
-Group Group Alias Group ID TechniqueName                    TechniqueID     Description
------ ----------- -------- -------------                    -----------     -----------
-FIN10 FIN10       G0051    PowerShell                       Technique/T1086 {[[Group/G0051|FIN10]] uses PowerShell for execution as well as PowerShell Empire to establish persistence.FireEye FIN10 June 2017Github PowerShell Empire}
-FIN10 FIN10       G0051    System Owner/User Discovery      Technique/T1033 {[[Group/G0051|FIN10]] has used Meterpreter to enumerate users on remote systems.FireEye FIN10 June 2017}
-FIN10 FIN10       G0051    Valid Accounts                   Technique/T1078 {[[Group/G0051|FIN10]] has used stolen credentials to connect remotely to victim networks using VPNs protected with only a single factor. The group has also moved laterally using the Local Ad...
-FIN10 FIN10       G0051    File Deletion                    Technique/T1107 {[[Group/G0051|FIN10]] has used batch scripts and scheduled tasks to delete critical system files.FireEye FIN10 June 2017}
-FIN10 FIN10       G0051    Registry Run Keys / Start Folder Technique/T1060 {[[Group/G0051|FIN10]] has established persistence by using the Registry option in PowerShell Empire to add a Run key.FireEye FIN10 June 2017Github PowerShell Empire}
-FIN10 FIN10       G0051    Scripting                        Technique/T1064 {[[Group/G0051|FIN10]] has executed malicious .bat files containing PowerShell commands.FireEye FIN10 June 2017}
-FIN10 FIN10       G0051    Remote File Copy                 Technique/T1105 {[[Group/G0051|FIN10]] has deployed Meterpreter stagers and SplinterRAT instances in the victim network after moving laterally.FireEye FIN10 June 2017}
-FIN10 FIN10       G0051    Scheduled Task                   Technique/T1053 {[[Group/G0051|FIN10]] has established persistence by using S4U tasks as well as the Scheduled Task option in PowerShell Empire.FireEye FIN10 June 2017Github PowerShell Empire}
-FIN10 FIN10       G0051    Remote Desktop Protocol          Technique/T1076 {[[Group/G0051|FIN10]] has used RDP to move laterally to systems in the victim environment.FireEye FIN10 June 2017}
+Group Group Alias Group ID Tactic                                         TechniqueName                       TechniqueID     Tool                                Description
+----- ----------- -------- ------                                         -------------                       -----------     ----                                -----------
+FIN7  FIN7        G0046    Discovery                                      Process Discovery                   Technique/T1057 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain information about running processes on the victim.FireEye FIN7 A...
+FIN7  FIN7        G0046    Persistence                                    Registry Run Keys / Start Folder    Technique/T1060                                     {[[Group/G0046|FIN7]] malware has created a Registry Run key pointing to its malicious LNK file to establ...
+FIN7  FIN7        G0046    Discovery                                      Query Registry                      Technique/T1012 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] queries Registry keys in preparation for setting Run keys to achieve pers...
+FIN7  FIN7        G0046    Persistence                                    Registry Run Keys / Start Folder    Technique/T1060 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] achieves persistence by setting a Registry Run key, with the path dependi...
+FIN7  FIN7        G0046    {Command and Control, Lateral Movement}        Remote File Copy                    Technique/T1105 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] has been observed being used to download [[Software/S0146|TEXTMATE]] and ...
+FIN7  FIN7        G0046    {Execution, Persistence, Privilege Escalation} Application Shimming                Technique/T1138                                     {[[Group/G0046|FIN7]] has used application shim databases for persistence.FireEye FIN7 Shim Databases}
+FIN7  FIN7        G0046    {Execution, Persistence, Privilege Escalation} Scheduled Task                      Technique/T1053                                     {[[Group/G0046|FIN7]] malware has created scheduled tasks to establish persistence.FireEye FIN7 April 201...
+FIN7  FIN7        G0046    Command and Control                            Standard Application Layer Protocol Technique/T1071 Software: Carbanak, Anunak          {The [[Software/S0030|Carbanak]] malware communicates to its command server using HTTP with an encrypted ...
+FIN7  FIN7        G0046    Collection                                     Screen Capture                      Technique/T1113 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain screenshots from the victim.FireEye FIN7 April 2017}
+FIN7  FIN7        G0046    Command and Control                            Standard Application Layer Protocol Technique/T1071 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] uses DNS TXT records for C2.FireEye FIN7 March 2017Cisco DNSMessenger Mar...
+FIN7  FIN7        G0046    Execution                                      Windows Management Instrumentation  Technique/T1047 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can use WMI queries to gather system information.FireEye FIN7 April 2017}
+FIN7  FIN7        G0046    Command and Control                            Standard Application Layer Protocol Technique/T1071 Software: TEXTMATE, DNSMessenger    {[[Software/S0146|TEXTMATE]] uses DNS TXT records for C2.FireEye FIN7 March 2017}
+FIN7  FIN7        G0046    Discovery                                      System Information Discovery        Technique/T1082 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain information about the OS, processor, and BIOS.FireEye FIN7 April...
+FIN7  FIN7        G0046    {Collection, Credential Access}                Input Capture                       Technique/T1056 Software: Carbanak, Anunak          {[[Software/S0030|Carbanak]] contains keylogger functionality.Kaspersky Carbanak}
+FIN7  FIN7        G0046    Command and Control                            Standard Cryptographic Protocol     Technique/T1032 Software: Carbanak, Anunak          {[[Software/S0030|Carbanak]] encrypts the message body of HTTP traffic with RC2 and Base64 encoding.Kaspe...
+FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can execute PowerShell scripts.FireEye FIN7 April 2017}
+FIN7  FIN7        G0046    {Command and Control, Lateral Movement}        Remote File Copy                    Technique/T1105                                     {[[Group/G0046|FIN7]] uses a PowerShell script to launch shellcode that retrieves an additional payload.F...
+FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] is a PowerShell backdoor.FireEye FIN7 March 2017Cisco DNSMessenger March ...
+FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086                                     {[[Group/G0046|FIN7]] uses a PowerShell script to launch shellcode that retrieves an additional payload.F...
+FIN7  FIN7        G0046    Defense Evasion                                Masquerading                        Technique/T1036                                     {[[Group/G0046|FIN7]] has created a scheduled task named “AdobeFlashSync” to establish persistence.Morphi...
+FIN7  FIN7        G0046    Defense Evasion                                Obfuscated Files or Information     Technique/T1027 Software: POWERSOURCE, DNSMessenger {If the victim is using PowerShell 3.0 or later, [[Software/S0145|POWERSOURCE]] writes its decoded payloa...
+FIN7  FIN7        G0046    Defense Evasion                                File Deletion                       Technique/T1107 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can delete a specified file.FireEye FIN7 April 2017}
+FIN7  FIN7        G0046    Execution                                      Command-Line Interface              Technique/T1059 Software: TEXTMATE, DNSMessenger    {[[Software/S0146|TEXTMATE]] executes cmd.exe to provide  a reverse shell to attackers.FireEye FIN7 March...
+
 
 .LINK
 https://github.com/Cyb3rWard0g/Invoke-ATTACKAPI
@@ -1032,7 +1082,8 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
         }
         if($PSCmdlet.ParameterSetName -eq 'ATTCKAttribution'){
            $hastechnique = $ATTCKLookUp.'Techniques subobjects'
-           $groups = $ATTCKLookUp.Group                   
+           $groups = $ATTCKLookUp.Group
+           $TechniquesList = $ATTCKLookUp.Technique                   
         }
         if($PSCmdlet.ParameterSetName -eq 'ATTCKAll'){
            $TechniquesList = $ATTCKLookUp.Technique
@@ -1246,22 +1297,28 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
             {
                 foreach ($grouptool in $g.tool)
                 {
-                    $AttriBucket += $hastechnique | where-object -Property 'Display Title' -EQ $grouptool | select @{Name='Group';Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, TechniqueID, @{Name='Tool'; Expression={$grouptool}}, description, URL
+                    $AttriBucket += $hastechnique | where-object -Property 'Display Title' -EQ $grouptool | select @{Name='Group';Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, TechniqueID, @{Name='Tool'; Expression={$grouptool}}, description
                 } 
-                $AttriBucket += $hastechnique | where-object -Property 'Display Title' -EQ $g.'Display Title' | select @{Name='Group'; Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, TechniqueID, description, URL
+                $AttriBucket += $hastechnique | where-object -Property 'Display Title' -EQ $g.'Display Title' | select @{Name='Group'; Expression={$g.Name}}, @{Name='Group Alias'; Expression={$g.Alias}}, @{Name='Group ID'; Expression={$g.ID}}, TechniqueName, TechniqueID, description
             }
-            return $AttriBucket | sort -Property Group
+                        
+            $AttriFinal =@()
+            foreach ($t in $TechniquesList)
+            {
+                $AttriFinal += $AttriBucket | Where-Object -Property TechniqueID -EQ $t.FullText | select Group, 'Group Alias', 'Group ID', @{Name='Tactic'; Expression={$t.Tactic}}, TechniqueName, TechniqueID, Tool, Description, @{Name='Data Source'; Expression={$t.'Data Source'}} 
+            }           
+            $AttriFinal | sort -Property Group
         }
         elseif($PSCmdlet.ParameterSetName -eq 'ATTCKAll')
         {
             $AllAttck = @()
-            $HasObject = Invoke-ATTACKAPI -Attribution
+            $HasObject = Invoke-ATTACKAPI -Attribution       
             foreach ($t in $TechniquesList)
             {
-                $AllAttck += $HasObject | Where-Object -Property TechniqueID -EQ $t.FullText | select @{Name='Tactic'; Expression={$t.Tactic}}, TechniqueName, TechniqueID, Group, 'Group Alias', 'Group ID', Tool, Description, @{Name='Data Source'; Expression={$t.'Data Source'}}, @{Name='Bypass'; Expression={$t.Bypass}}, @{Name='Analytic Details'; Expression={$t.'Analytic Details'}}, @{Name='Mitigation'; Expression={$t.Mitigation}},@{Name='Platform'; Expression={$t.Platform}},@{Name='Requires Permission'; Expression={$t.'Requires Permission'}}, @{Name='Requires System'; Expression={$t.'Requires System'}}, @{Name='Contributor'; Expression={$t.Contributor}}, URL   
+                $AllAttck += $HasObject | Where-Object -Property TechniqueID -EQ $t.FullText | select Tactic, TechniqueName, TechniqueID, Group, 'Group Alias', 'Group ID', Tool, Description, 'Data Source', @{Name='Bypass'; Expression={$t.Bypass}}, @{Name='Analytic Details'; Expression={$t.'Analytic Details'}}, @{Name='Mitigation'; Expression={$t.Mitigation}},@{Name='Platform'; Expression={$t.Platform}},@{Name='Requires Permission'; Expression={$t.'Requires Permission'}}, @{Name='Requires System'; Expression={$t.'Requires System'}}, @{Name='Contributor'; Expression={$t.Contributor}}, @{Name='URL'; Expression={$t.URL}}   
             }
             $AllAttck += $TechniquesList | select Tactic, TechniqueName, @{Name='TechniqueID'; Expression={$_.FullText}}, Description, 'Data Source', Bypass, 'Analytic Details',Mitigation, Platform,'Requires Permission', 'Requires System','CAPEC ID', Contributor, URL 
-            return $AllAttck | sort -Property Tactic
+            $AllAttck | sort -Property Tactic
         }
         else
         {
