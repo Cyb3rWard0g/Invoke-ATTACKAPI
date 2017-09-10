@@ -251,59 +251,6 @@ select @{Name="Name"; Expression={$_.Name -join ","}}, @{Name="Tactic"; Expressi
 @{Name="Data Source";Expression={$_.'Data Source' -join ","}}  | export-csv F:\wardog\scripts\demo6.csv -NoTypeInformation
 
 .EXAMPLE
-Show up to date ATT&CK Matrix for Enterprise
-
-Invoke-ATTACKAPI -Matrix | select Persistence, 'Privilege Escalation', 'Defense Evasion','Credential Access', Discovery, 'Lateral Movement', Execution, Collection, Exfiltration, 'Command and Control' | ft
-
-Persistence                                           Privilege Escalation                  Defense Evasion                         Credential Access                      Discovery                              Lateral Movement                    Execution
------------                                           --------------------                  ---------------                         -----------------                      ---------                              ----------------                    ---------
-.bash_profile and .bashrc                             Access Token Manipulation             Access Token Manipulation               Account Manipulation                   Account Discovery                      AppleScript                         AppleScript
-Accessibility Features                                Accessibility Features                Binary Padding                          Bash History                           Application Window Discovery           Application Deployment Software     Application Shimming
-AppInit DLLs                                          AppInit DLLs                          Bypass User Account Control             Brute Force                            File and Directory Discovery           Exploitation of Vulnerability       Command-Line Interface
-Application Shimming                                  Application Shimming                  Clear Command History                   Create Account                         Network Service Scanning               Logon Scripts                       Execution through API
-Authentication Package                                Bypass User Account Control           Code Signing                            Credential Dumping                     Network Share Discovery                Pass the Hash                       Execution through Mod...
-Bootkit                                               DLL Injection                         Component Firmware                      Credentials in Files                   Peripheral Device Discovery            Pass the Ticket                     Graphical User Interface
-Change Default File Association                       DLL Search Order Hijacking            Component Object Model Hijacking        Exploitation of Vulnerability          Permission Groups Discovery            Remote Desktop Protocol             InstallUtil
-Component Firmware                                    Dylib Hijacking                       Deobfuscate/Decode Files or Information Input Capture                          Process Discovery                      Remote File Copy                    Launchctl
-Component Object Model Hijacking                      Exploitation of Vulnerability         Disabling Security Tools                Input Prompt                           Query Registry                         Remote Services                     PowerShell
-Cron Job                                              File System Permissions Weakness      DLL Injection                           Keychain                               Remote System Discovery                Replication Through Removable Media Process Hollowing
-DLL Search Order Hijacking                            Launch Daemon                         DLL Search Order Hijacking              Network Sniffing                       Security Software Discovery            Shared Webroot                      Regsvcs/Regasm
-Dylib Hijacking                                       Local Port Monitor                    DLL Side-Loading                        Private Keys                           System Information Discovery           Taint Shared Content                Regsvr32
-External Remote Services                              New Service                           Exploitation of Vulnerability           Securityd Memory                       System Network Configuration Discovery Third-party Software                Rundll32
-File System Permissions Weakness                      Path Interception                     File Deletion                           Two-Factor Authentication Interception System Network Connections Discovery   Windows Admin Shares                Scheduled Task
-Hidden Files and Directories                          Plist Modification                    File System Logical Offsets                                                    System Owner/User Discovery            Windows Remote Management           Scripting
-Hypervisor                                            Scheduled Task                        Gatekeeper Bypass                                                              System Service Discovery                                                   Service Execution
-Launch Agent                                          Service Registry Permissions Weakness Hidden Files and Directories                                                   System Time Discovery                                                      Source
-Launch Daemon                                         Setuid and Setgid                     Hidden Users                                                                                                                                              Space after Filename
-Launchctl                                             Startup Items                         Hidden Window                                                                                                                                             Third-party Software
-LC_LOAD_DYLIB Addition                                Sudo                                  HISTCONTROL                                                                                                                                               Trap
-Local Port Monitor                                    Valid Accounts                        Indicator Blocking                                                                                                                                        Trusted Developer Uti...
-Login Item                                            Web Shell                             Indicator Removal from Tools                                                                                                                              Windows Management In...
-Logon Scripts                                                                               Indicator Removal on Host                                                                                                                                 Windows Remote Manage...
-Modify Existing Service                                                                     Install Root Certificate
-Netsh Helper DLL                                                                            InstallUtil
-New Service                                                                                 Launchctl
-Office Application Startup                                                                  LC_MAIN Hijacking
-Path Interception                                                                           Masquerading
-Plist Modification                                                                          Modify Registry
-Rc.common                                                                                   Network Share Connection Removal
-Redundant Access                                                                            NTFS Extended Attributes
-Registry Run Keys / Start Folder                                                            Obfuscated Files or Information
-Re-opened Applications                                                                      Plist Modification
-Scheduled Task                                                                              Process Hollowing
-Security Support Provider                                                                   Redundant Access
-Service Registry Permissions Weakness                                                       Regsvcs/Regasm
-Shortcut Modification                                                                       Regsvr32
-Startup Items                                                                               Rootkit
-System Firmware                                                                             Rundll32
-Trap                                                                                        Scripting
-Valid Accounts                                                                              Software Packing
-Web Shell                                                                                   Space after Filename
-Windows Management Instrumentation Event Subscription                                       Timestomp
-Winlogon Helper DLL                                                                         Trusted Developer Utilities
-                                                                                            Valid Accounts
-
-.EXAMPLE
 Showing an up to date table with all the valuable information from the MITRE ATTACK DB at once
 
 Invoke-ATTACKAPI -All | ft
