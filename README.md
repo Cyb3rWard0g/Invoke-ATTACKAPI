@@ -63,14 +63,15 @@ Mitigation          : {Network intrusion detection and prevention systems that u
                       based on the specific obfuscation technique used by a particular adversary or tool, and
                       will likely be different across various malware families and versions. Adversaries will
                       likely change tool C2 signatures over time or construct protocols in such a way as to
-                      avoid detection by common defensive tools.University of Birmingham C2}
+                      avoid detection by common defensive tools.[[CiteRef::University of Birmingham C2]]}
 Tactic              : Command and Control
 Analytic Details    : {Analyze network data for uncommon data flows (e.g., a client sending significantly more
                       data than it receives from a server). Processes utilizing the network that do not normally
+
                       have network communication or have never been seen before are suspicious. Analyze packet
                       contents to detect communications that do not follow the expected protocol behavior for
-                      the port that is being used.University of Birmingham C2}
-Technique Name      : {Data Obfuscation}
+                      the port that is being used.[[CiteRef::University of Birmingham C2]]}
+TechniqueName       : {Data Obfuscation}
 FullText            : Technique/T1001
 Link Text           : {[[Technique/T1001|Data Obfuscation]]}
 Reference           : {University of Birmingham C2, FireEye APT28, Axiom, FireEye APT30...}
@@ -79,7 +80,6 @@ Name                : {Data Obfuscation}
 CAPEC ID            : {}
 Requires Permission : {}
 URL                 : https://attack.mitre.org/wiki/Technique/T1001
-
 .............
 ..................
 
@@ -92,27 +92,28 @@ Requires System     : {Unpatched software or otherwise vulnerable target. Depend
                       permissions on the target system.}
 Data Source         : {Windows Error Reporting, File monitoring, Process monitoring}
 Description         : {Exploitation of a software vulnerability occurs when an adversary takes advantage of a
-                      programming error in a program, service, or within the operating system software or kernel
-                      itself to execute adversary-controlled code. Exploiting software vulnerabilities may allow
-                      adversaries to run a command or binary on a remote system for lateral movement, escalate a
-                      current process to a higher privilege level, or bypass security mechanisms. Exploits may
-                      also allow an adversary access to privileged accounts and credentials. One example of this
-                      is MS14-068, which can be used to forge Kerberos tickets using domain user
-                      permissions.Technet MS14-068ADSecurity Detecting Forged Tickets}
-Mitigation          : {Update software regularly by employing patch management for internal enterprise endpoints
-                      and servers. Develop a robust cyber threat intelligence capability to determine what types
-                      and levels of threat may use software exploits and 0-days against a particular
+                      programming error in a program, service, or within the operating system software or
+                      kernel itself to execute adversary-controlled code. Exploiting software vulnerabilities
+                      may allow adversaries to run a command or binary on a remote system for lateral movement,
+                      escalate a current process to a higher privilege level, or bypass security mechanisms.
+                      Exploits may also allow an adversary access to privileged accounts and credentials. One
+                      example of this is MS14-068, which can be used to forge Kerberos tickets using domain
+                      user permissions.[[CiteRef::Technet MS14-068]][[CiteRef::ADSecurity Detecting Forged
+                      Tickets]]}
+Mitigation          : {Update software regularly by employing patch management for internal enterprise
+                      endpoints and servers. Develop a robust cyber threat intelligence capability to determine
+                      what types and levels of threat may use software exploits and 0-days against a particular
                       organization. Make it difficult for adversaries to advance their operation through
                       exploitation of undiscovered or unpatched vulnerabilities by using sandboxing,
                       virtualization, and exploit prevention tools such as the Microsoft Enhanced Mitigation
-                      Experience Toolkit.SRD EMET}
+                      Experience Toolkit.[[CiteRef::SRD EMET]]}
 Tactic              : {Credential Access, Defense Evasion, Lateral Movement, Privilege Escalation}
 Analytic Details    : {Software exploits may not always succeed or may cause the exploited process to become
                       unstable or crash. Software and operating system crash reports may contain useful
                       contextual information about attempted exploits that correlate with other malicious
                       activity. Exploited processes may exhibit behavior that is unusual for the specific
                       process, such as spawning additional processes or reading and writing to files.}
-Technique Name      : {Exploitation of Vulnerability}
+TechniqueName       : {Exploitation of Vulnerability}
 FullText            : Technique/T1068
 Link Text           : {[[Technique/T1068|Exploitation of Vulnerability]]}
 Reference           : {ADSecurity Detecting Forged Tickets, Bitdefender APT28 Dec 2015, ESET Sednit July 2015,
@@ -137,20 +138,21 @@ Description         : {Rootkits are programs that hide the existence of malware 
                       operating system API calls that supply system information. Rootkits or rootkit enabling
                       functionality may reside at the user or kernel level in the operating system or lower, to
                       include a [[Technique/T1062|Hypervisor]], Master Boot Record, or the
-                      [[Technique/T1019|System Firmware]].Wikipedia Rootkit
+                      [[Technique/T1019|System Firmware]].[[CiteRef::Wikipedia Rootkit]]
 
-                      Adversaries may use rootkits to hide the presence of programs, files, network connections,
-                      services, drivers, and other system components.}
-Mitigation          : {Identify potentially malicious software that may contain rootkit functionality, and audit
-                      and/or block it by using whitelistingBeechey 2010 tools, like AppLocker,Windows Commands
-                      JPCERTNSA MS AppLocker or Software Restriction PoliciesCorio 2008 where
-                      appropriate.TechNet Applocker vs SRP}
+                      Adversaries may use rootkits to hide the presence of programs, files, network
+                      connections, services, drivers, and other system components.}
+Mitigation          : {Identify potentially malicious software that may contain rootkit functionality, and
+                      audit and/or block it by using whitelisting[[CiteRef::Beechey 2010]] tools, like
+                      AppLocker,[[CiteRef::Windows Commands JPCERT]][[CiteRef::NSA MS AppLocker]] or Software
+                      Restriction Policies[[CiteRef::Corio 2008]] where appropriate.[[CiteRef::TechNet
+                      Applocker vs SRP]]}
 Tactic              : Defense Evasion
-Analytic Details    : {Some rootkit protections may be built into anti-virus or operating system software. There
-                      are dedicated rootkit detection tools that look for specific types of rootkit behavior.
-                      Monitor for the existence of unrecognized DLLs, devices, services, and changes to the
-                      MBR.Wikipedia Rootkit}
-Technique Name      : {Rootkit}
+Analytic Details    : {Some rootkit protections may be built into anti-virus or operating system software.
+                      There are dedicated rootkit detection tools that look for specific types of rootkit
+                      behavior. Monitor for the existence of unrecognized DLLs, devices, services, and changes
+                      to the MBR.[[CiteRef::Wikipedia Rootkit]]}
+TechniqueName       : {Rootkit}
 FullText            : Technique/T1014
 Link Text           : {[[Technique/T1014|Rootkit]]}
 Reference           : {Wikipedia Rootkit, Beechey 2010, Windows Commands JPCERT, NSA MS AppLocker...}
@@ -163,7 +165,7 @@ URL                 : https://attack.mitre.org/wiki/Technique/T1014
 
 ### This query matches against all the group that use a specific software (in this case Cobalt Strike). SYNTAX: "Software: \<tool name>"
 ```
-Invoke-ATTACKAPI -Category -Group -Tool "Software: Cobalt Strike"
+Invoke-ATTACKAPI -Category -Group -Tool 'Software: Cobalt Strike'
 
 Tool          : {Software: Cobalt Strike, Software: KOMPROGO, Software: WINDSHIELD, Software: SOUNDBITE...}
 Alias         : {APT32, OceanLotus Group}
@@ -172,13 +174,14 @@ URL           : https://attack.mitre.org/wiki/Group/G0050
 TechniqueName : {Scheduled Task, Regsvr32, PowerShell, Custom Command and Control Protocol...}
 FullText      : Group/G0050
 Reference     : {FireEye APT32 May 2017, GitHub Malleable C2, GitHub Invoke-Obfuscation}
-Name          : {APT32}
-Description   : {[[Group/G0050|APT32]] is a threat group that has been active since at least 2014. The group has
-                targeted multiple private sector industries as well as with foreign governments, dissidents, and
-                journalists. The group's operations are aligned with Vietnamese state interests.FireEye APT32
-                May 2017}
-TechniqueID   : {Technique/T1053, Technique/T1117, Technique/T1086, Technique/T1094...}
 Link Text     : {[[Group/G0050|APT32]]}
+Name          : {APT32}
+Description   : {[[Group/G0050|APT32]] is a threat group that has been active since at least 2014. The group
+                has targeted multiple private sector industries as well as with foreign governments,
+                dissidents, and journalists. The group's operations are aligned with Vietnamese state
+                interests.[[CiteRef::FireEye APT32 May 2017]]}
+TechniqueID   : {Technique/T1053, Technique/T1117, Technique/T1086, Technique/T1094...}
+Display Title : Group: APT32, OceanLotus Group
 ```
 
 ### [BETA] Exporting custom results to a CSV
@@ -302,38 +305,37 @@ APT1      {APT1, Comment Crew, Comment Group, Comment Panda} G0006    Lateral Mo
 ```
 Invoke-ATTACKAPI -Attribution | Where-Object -Property 'Group ID' -EQ 'G0046' | ft
 
-
 Group Group Alias Group ID Tactic                                         TechniqueName                       TechniqueID     Tool                                Description
 ----- ----------- -------- ------                                         -------------                       -----------     ----                                -----------
-FIN7  FIN7        G0046    Discovery                                      Process Discovery                   Technique/T1057 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain information about running processes on the victim.FireEye FIN7 A...
+FIN7  FIN7        G0046    Discovery                                      Process Discovery                   Technique/T1057 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain information about running processes on the victim.[[CiteRef::Fir...
 FIN7  FIN7        G0046    Persistence                                    Registry Run Keys / Start Folder    Technique/T1060                                     {[[Group/G0046|FIN7]] malware has created a Registry Run key pointing to its malicious LNK file to establ...
 FIN7  FIN7        G0046    Discovery                                      Query Registry                      Technique/T1012 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] queries Registry keys in preparation for setting Run keys to achieve pers...
 FIN7  FIN7        G0046    Persistence                                    Registry Run Keys / Start Folder    Technique/T1060 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] achieves persistence by setting a Registry Run key, with the path dependi...
 FIN7  FIN7        G0046    {Command and Control, Lateral Movement}        Remote File Copy                    Technique/T1105 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] has been observed being used to download [[Software/S0146|TEXTMATE]] and ...
-FIN7  FIN7        G0046    {Execution, Persistence, Privilege Escalation} Application Shimming                Technique/T1138                                     {[[Group/G0046|FIN7]] has used application shim databases for persistence.FireEye FIN7 Shim Databases}
-FIN7  FIN7        G0046    {Execution, Persistence, Privilege Escalation} Scheduled Task                      Technique/T1053                                     {[[Group/G0046|FIN7]] malware has created scheduled tasks to establish persistence.FireEye FIN7 April 201...
+FIN7  FIN7        G0046    {Execution, Persistence, Privilege Escalation} Application Shimming                Technique/T1138                                     {[[Group/G0046|FIN7]] has used application shim databases for persistence.[[CiteRef::FireEye FIN7 Shim Da...
+FIN7  FIN7        G0046    {Execution, Persistence, Privilege Escalation} Scheduled Task                      Technique/T1053                                     {[[Group/G0046|FIN7]] malware has created scheduled tasks to establish persistence.[[CiteRef::FireEye FIN...
 FIN7  FIN7        G0046    Command and Control                            Standard Application Layer Protocol Technique/T1071 Software: Carbanak, Anunak          {The [[Software/S0030|Carbanak]] malware communicates to its command server using HTTP with an encrypted ...
-FIN7  FIN7        G0046    Collection                                     Screen Capture                      Technique/T1113 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain screenshots from the victim.FireEye FIN7 April 2017}
-FIN7  FIN7        G0046    Command and Control                            Standard Application Layer Protocol Technique/T1071 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] uses DNS TXT records for C2.FireEye FIN7 March 2017Cisco DNSMessenger Mar...
-FIN7  FIN7        G0046    Execution                                      Windows Management Instrumentation  Technique/T1047 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can use WMI queries to gather system information.FireEye FIN7 April 2017}
-FIN7  FIN7        G0046    Command and Control                            Standard Application Layer Protocol Technique/T1071 Software: TEXTMATE, DNSMessenger    {[[Software/S0146|TEXTMATE]] uses DNS TXT records for C2.FireEye FIN7 March 2017}
-FIN7  FIN7        G0046    Discovery                                      System Information Discovery        Technique/T1082 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain information about the OS, processor, and BIOS.FireEye FIN7 April...
-FIN7  FIN7        G0046    {Collection, Credential Access}                Input Capture                       Technique/T1056 Software: Carbanak, Anunak          {[[Software/S0030|Carbanak]] contains keylogger functionality.Kaspersky Carbanak}
-FIN7  FIN7        G0046    Command and Control                            Standard Cryptographic Protocol     Technique/T1032 Software: Carbanak, Anunak          {[[Software/S0030|Carbanak]] encrypts the message body of HTTP traffic with RC2 and Base64 encoding.Kaspe...
-FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can execute PowerShell scripts.FireEye FIN7 April 2017}
-FIN7  FIN7        G0046    {Command and Control, Lateral Movement}        Remote File Copy                    Technique/T1105                                     {[[Group/G0046|FIN7]] uses a PowerShell script to launch shellcode that retrieves an additional payload.F...
-FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] is a PowerShell backdoor.FireEye FIN7 March 2017Cisco DNSMessenger March ...
-FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086                                     {[[Group/G0046|FIN7]] uses a PowerShell script to launch shellcode that retrieves an additional payload.F...
-FIN7  FIN7        G0046    Defense Evasion                                Masquerading                        Technique/T1036                                     {[[Group/G0046|FIN7]] has created a scheduled task named AdobeFlashSync to establish persistence.Morphi...
+FIN7  FIN7        G0046    Collection                                     Screen Capture                      Technique/T1113 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain screenshots from the victim.[[CiteRef::FireEye FIN7 April 2017]]}
+FIN7  FIN7        G0046    Command and Control                            Standard Application Layer Protocol Technique/T1071 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] uses DNS TXT records for C2.[[CiteRef::FireEye FIN7 March 2017]][[CiteRef...
+FIN7  FIN7        G0046    Execution                                      Windows Management Instrumentation  Technique/T1047 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can use WMI queries to gather system information.[[CiteRef::FireEye FIN7 Ap...
+FIN7  FIN7        G0046    Command and Control                            Standard Application Layer Protocol Technique/T1071 Software: TEXTMATE, DNSMessenger    {[[Software/S0146|TEXTMATE]] uses DNS TXT records for C2.[[CiteRef::FireEye FIN7 March 2017]]}
+FIN7  FIN7        G0046    Discovery                                      System Information Discovery        Technique/T1082 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can obtain information about the OS, processor, and BIOS.[[CiteRef::FireEye...
+FIN7  FIN7        G0046    {Collection, Credential Access}                Input Capture                       Technique/T1056 Software: Carbanak, Anunak          {[[Software/S0030|Carbanak]] contains keylogger functionality.[[CiteRef::Kaspersky Carbanak]]}
+FIN7  FIN7        G0046    Command and Control                            Standard Cryptographic Protocol     Technique/T1032 Software: Carbanak, Anunak          {[[Software/S0030|Carbanak]] encrypts the message body of HTTP traffic with RC2 and Base64 encoding.[[Cit...
+FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can execute PowerShell scripts.[[CiteRef::FireEye FIN7 April 2017]]}
+FIN7  FIN7        G0046    {Command and Control, Lateral Movement}        Remote File Copy                    Technique/T1105                                     {[[Group/G0046|FIN7]] uses a PowerShell script to launch shellcode that retrieves an additional payload.[...
+FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086 Software: POWERSOURCE, DNSMessenger {[[Software/S0145|POWERSOURCE]] is a PowerShell backdoor.[[CiteRef::FireEye FIN7 March 2017]][[CiteRef::C...
+FIN7  FIN7        G0046    Execution                                      PowerShell                          Technique/T1086                                     {[[Group/G0046|FIN7]] uses a PowerShell script to launch shellcode that retrieves an additional payload.[...
+FIN7  FIN7        G0046    Defense Evasion                                Masquerading                        Technique/T1036                                     {[[Group/G0046|FIN7]] has created a scheduled task named “AdobeFlashSync” to establish persistence.[[Cite...
 FIN7  FIN7        G0046    Defense Evasion                                Obfuscated Files or Information     Technique/T1027 Software: POWERSOURCE, DNSMessenger {If the victim is using PowerShell 3.0 or later, [[Software/S0145|POWERSOURCE]] writes its decoded payloa...
-FIN7  FIN7        G0046    Defense Evasion                                File Deletion                       Technique/T1107 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can delete a specified file.FireEye FIN7 April 2017}
-FIN7  FIN7        G0046    Execution                                      Command-Line Interface              Technique/T1059 Software: TEXTMATE, DNSMessenger    {[[Software/S0146|TEXTMATE]] executes cmd.exe to provide  a reverse shell to attackers.FireEye FIN7 March...
+FIN7  FIN7        G0046    Defense Evasion                                File Deletion                       Technique/T1107 Software: HALFBAKED                 {[[Software/S0151|HALFBAKED]] can delete a specified file.[[CiteRef::FireEye FIN7 April 2017]]}
+FIN7  FIN7        G0046    Execution                                      Command-Line Interface              Technique/T1059 Software: TEXTMATE, DNSMessenger    {[[Software/S0146|TEXTMATE]] executes cmd.exe to provide  a reverse shell to attackers.[[CiteRef::FireEye...
 ```
 
 ### Getting an up to date table of Groups/APTs with the techniques and tools attributed to them and exporting it to a csv file
 ```
-Invoke-ATTACKAPI -Attribution | select Group, 'Group Alias','Group ID', Tactic, TechniqueName,
-TechniqueID, Tool, @{Name='Description'; Expression={$_.Description -join ','}}, 'Data Source'|
+Invoke-ATTACKAPI -Attribution | PS C:\HIVE\github\Invoke-ATTACKAPI> $att | select Group, 'Group Alias',
+ 'Group ID', Tactic, TechniqueName, TechniqueID, Tool, @{Name='Description'; Expression={$_.Description}}, 'Data Source'|
  export-csv -NoTypeInformation C:\Documents\ATTACK_Attribution.csv
 ```
 
