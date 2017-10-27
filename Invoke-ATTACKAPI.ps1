@@ -1081,20 +1081,20 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                         $Props = @{
                             'FullText' = $object.fulltext
                             'URL' = $object.fullurl
-						    'CAPEC ID' = $object.printouts.'Has CAPEC ID'
+			    'CAPEC ID' = $object.printouts.'Has CAPEC ID'
                             'ID' = $object.printouts.'Has ID'
-						    'Analytic Details' = $object.printouts.'Has analytic details'
-						    'Contributor' = $object.printouts.'Has contributor'
-						    'Data Source' = $object.printouts.'Has data source'
+			    'Analytic Details' = $object.printouts.'Has analytic details'
+			    'Contributor' = $object.printouts.'Has contributor'
+			    'Data Source' = $object.printouts.'Has data source'
                             'Name' = $object.printouts.'Has display name'
-						    'Link Text' = $object.printouts.'Has link text'
-						    'Mitigation' = $object.printouts.'Has mitigation'
-						    'Platform' = $object.printouts.'Has platform'
+			    'Link Text' = $object.printouts.'Has link text'
+			    'Mitigation' = $object.printouts.'Has mitigation'
+			    'Platform' = $object.printouts.'Has platform'
                             'Tactic' = $object.printouts.'Has tactic'.fulltext
                             'Description' = $object.printouts.'Has technical description'
-						    'TechniqueName' = $object.printouts.'Has technique name'
-						    'Requires Permission' = $object.printouts.'Requires permissions'
-						    'Requires System' = $object.printouts.'Requires system'
+			    'TechniqueName' = $object.printouts.'Has technique name'
+			    'Requires Permission' = $object.printouts.'Requires permissions'
+			    'Requires System' = $object.printouts.'Requires system'
                             'Bypass' = $object.printouts.'Bypasses defense'
                             'Reference' = $object.printouts.'Citation reference'
                             }
@@ -1106,14 +1106,14 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                             'FullText' = $object.fulltext
                             'Display Title' = $object.displaytitle
                             'ID' = $object.printouts.'Has ID'
-							'Alias' = $object.printouts.'Has alias'
-							'Description' = $object.printouts.'Has Description'
+			    'Alias' = $object.printouts.'Has alias'
+			    'Description' = $object.printouts.'Has Description'
                             'Name' = $object.printouts.'Has display name'
-							'Link Text' = $object.printouts.'Has link text'
-							'TechniqueName' = $object.printouts.'Has technique'.displaytitle
-							'Tool' = $object.printouts.'Uses software'.displaytitle
-                            'TechniqueID' = $object.printouts.'Has technique'.fulltext                         
-							'URL' = $object.fullurl
+			    'Link Text' = $object.printouts.'Has link text'
+			    'TechniqueName' = $object.printouts.'Has technique'.displaytitle
+			    'Tool' = $object.printouts.'Uses software'.displaytitle
+                            'TechniqueID' = $object.printouts.'Has technique'.fulltext
+			    'URL' = $object.fullurl
                             'Reference' = $object.printouts.'Citation reference'
                         }   
                         $TotalObjects = New-Object PSCustomObject -Property $Props
@@ -1123,16 +1123,16 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                         $Props = @{
                             'FullText' = $object.fulltext
                             'ID' = $object.printouts.'Has ID'
-							'Alias' = $object.printouts.'Has alias'
+			    'Alias' = $object.printouts.'Has alias'
                             'Description' = $object.printouts.'Has Description'
-							'Name' = $object.printouts.'Has display name'
-							'Link Text' = $object.printouts.'Has link text'
-							'Software Type' = $object.printouts.'Has software type'
+			    'Name' = $object.printouts.'Has display name'
+			    'Link Text' = $object.printouts.'Has link text'
+			    'Software Type' = $object.printouts.'Has software type'
                             'TechniqueName' = $object.printouts.'Has technique'.displaytitle
                             'Type' = $object.printouts.'Has software type'
-							'TechniqueID' = $object.printouts.'Has technique'.fulltext
-							'URL' = $object.fullurl
-							'Reference' = $object.printouts.'Citation reference'
+			    'TechniqueID' = $object.printouts.'Has technique'.fulltext
+			    'URL' = $object.fullurl
+			    'Reference' = $object.printouts.'Citation reference'
                         }
                         $TotalObjects = New-Object PSCustomObject -Property $Props
                         $Collection += $TotalObjects
@@ -1167,7 +1167,7 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
                     if($cat -eq 'Techniques subobjects'){
                         $Props = @{
                             'Display Title' = $object.displaytitle
-							'TechniqueName' = $object.printouts.'Has technique object'.displaytitle
+			    'TechniqueName' = $object.printouts.'Has technique object'.displaytitle
                             'TechniqueID' = $object.printouts.'Has technique object'.Fulltext
                             'URL' = $object.printouts.'Has technique object'.Fullurl
                             'Description' =  $object.printouts.'Has technique description'
@@ -1265,7 +1265,7 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
             $HasObject = Invoke-ATTACKAPI -Attribution       
             foreach ($t in $TechniquesList)
             {
-                $AllAttck += $HasObject | Where-Object -Property TechniqueID -EQ $t.FullText | select Tactic, TechniqueName, TechniqueID, Group, 'Group Alias', 'Group ID', Tool, Description, 'Data Source', @{Name='Bypass'; Expression={$t.Bypass}}, @{Name='Analytic Details'; Expression={$t.'Analytic Details'}}, @{Name='Mitigation'; Expression={$t.Mitigation}},@{Name='Platform'; Expression={$t.Platform}},@{Name='Requires Permission'; Expression={$t.'Requires Permission'}}, @{Name='Requires System'; Expression={$t.'Requires System'}}, @{Name='Contributor'; Expression={$t.Contributor}}, @{Name='URL'; Expression={$t.URL}}   
+                $AllAttck += $HasObject | Where-Object -Property TechniqueID -EQ $t.FullText | select Tactic, TechniqueName, TechniqueID, Group, 'Group Alias', 'Group ID', Tool, Description, 'Data Source', @{Name='Bypass'; Expression={$t.Bypass}}, @{Name='Analytic Details'; Expression={$t.'Analytic Details'}}, @{Name='Mitigation'; Expression={$t.Mitigation}},@{Name='Platform'; Expression={$t.Platform}},@{Name='Requires Permission'; Expression={$t.'Requires Permission'}}, @{Name='Requires System'; Expression={$t.'Requires System'}}, @{Name='CAPEC ID'; Expression={$t.'CAPEC ID'}}, @{Name='Contributor'; Expression={$t.Contributor}}, @{Name='URL'; Expression={$t.URL}}   
             }
             $AllAttck += $TechniquesList | select Tactic, TechniqueName, @{Name='TechniqueID'; Expression={$_.FullText}}, Description, 'Data Source', Bypass, 'Analytic Details',Mitigation, Platform,'Requires Permission', 'Requires System','CAPEC ID', Contributor, URL 
             $AllAttck | sort -Property Tactic
