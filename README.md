@@ -334,8 +334,8 @@ FIN7  FIN7        G0046    Execution                                      Comman
 
 ### Getting an up to date table of Groups/APTs with the techniques and tools attributed to them and exporting it to a csv file
 ```
-Invoke-ATTACKAPI -Attribution | PS C:\HIVE\github\Invoke-ATTACKAPI> $att | select Group, 'Group Alias',
- 'Group ID', Tactic, TechniqueName, TechniqueID, Tool, @{Name='Description'; Expression={$_.Description}}, 'Data Source'|
+Invoke-ATTACKAPI -Attribution | select Group, 'Group Alias','Group ID', Tactic, TechniqueName,
+TechniqueID, Tool, @{Name='Description'; Expression={$_.Description}}, 'Data Source'|
  export-csv -NoTypeInformation C:\Documents\ATTACK_Attribution.csv
 ```
 
@@ -374,15 +374,16 @@ Collection  Data Staged             Technique/T1074 APT30             APT30     
 
 ### Getting an up to date table with all the valuable information from the MITRE ATTACK DB at once and exporting it to a csv file
 ```
-Invoke-ATTACKAPI -All | select @{Name='Tactic'; Expression={$_.tactic -join ','}}, @{Nam
-e='TechniqueName'; Expression={$_.techniquename -join ','}}, techniqueID, group, @{Name='Group Alias'; Expression=
-{$_.'Group alias' -join ','}}, 'Group ID', @{Name='Tool'; Expression={$_.Tool -join ','}}, @{Name='Description'; E
-xpression={$_.Description -join ','}}, @{Name='Data Source'; Expression={$_.'Data Source' -join ','}}, @{Name='Byp
-ass'; Expression={$_.Bypass -join ','}}, @{Name='Analytic Details'; Expression={$_.'Analytic Details' -join ','}},
- @{Name='Mitigation'; Expression={$_.Mitigation -join ','}}, @{Name='Platform'; Expression={$_.Platform -join ','}
-}, @{Name='Requires Permission'; Expression={$_.'Requires System' -join ','}}, @{Name='CAPEC ID'; Expression={$_.'
-CAPEC ID' -join ','}}, @{Name='Contributor'; Expression={$_.Contributor -join ','}}, @{Name='URL'; Expression={$_.
-URL -join ','}} | Export-Csv -NoTypeInformation C:\\Downloads\ATTACK_ALL.csv
+Invoke-ATTACKAPI -All | select @{Name='Tactic'; Expression={$_.tactic -join ','}}, @{Name='TechniqueName';
+Expression={$_.techniquename -join ','}}, techniqueID, group, @{Name='Group Alias'; Expression={$_.'Group alias'
+-join ','}}, 'Group ID', @{Name='Tool'; Expression={$_.Tool -join ','}}, @{Name='Description'; 
+Expression={$_.Description -join ','}}, @{Name='Data Source'; Expression={$_.'Data Source' -join ','}}, 
+@{Name='Bypass'; Expression={$_.Bypass -join ','}}, @{Name='Analytic Details'; Expression={$_.'Analytic Details'
+-join ','}}, @{Name='Mitigation'; Expression={$_.Mitigation -join ','}}, @{Name='Platform'; 
+Expression={$_.Platform -join ','}}, @{Name='Requires Permission'; Expression={$_.'Requires Permission' -join
+','}}, @{Name='Requires Permission'; Expression={$_.'Requires Permission' -join ','}}, @{Name='CAPEC ID'; 
+Expression={$_.'CAPEC ID' -join ','}}, @{Name='Contributor'; Expression={$_.Contributor -join ','}}, 
+@{Name='URL'; Expression={$_.URL -join ','}} | Export-Csv -NoTypeInformation C:\\Downloads\ATTACK_ALL.csv
 ```
 
 # Author
