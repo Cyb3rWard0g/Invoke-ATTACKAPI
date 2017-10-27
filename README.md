@@ -381,7 +381,7 @@ Expression={$_.Description -join ','}}, @{Name='Data Source'; Expression={$_.'Da
 @{Name='Bypass'; Expression={$_.Bypass -join ','}}, @{Name='Analytic Details'; Expression={$_.'Analytic Details'
 -join ','}}, @{Name='Mitigation'; Expression={$_.Mitigation -join ','}}, @{Name='Platform'; 
 Expression={$_.Platform -join ','}}, @{Name='Requires Permission'; Expression={$_.'Requires Permission' -join
-','}}, @{Name='Requires Permission'; Expression={$_.'Requires Permission' -join ','}}, @{Name='CAPEC ID'; 
+','}}, @{Name='Requires System'; Expression={$_.'Requires System' -join ','}}, @{Name='CAPEC ID'; 
 Expression={$_.'CAPEC ID' -join ','}}, @{Name='Contributor'; Expression={$_.Contributor -join ','}}, 
 @{Name='URL'; Expression={$_.URL -join ','}} | Export-Csv -NoTypeInformation C:\\Downloads\ATTACK_ALL.csv
 ```
