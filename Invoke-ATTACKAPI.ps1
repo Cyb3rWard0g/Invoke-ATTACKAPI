@@ -1182,6 +1182,7 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
         elseif($PSCmdlet.ParameterSetName -eq 'ATTACKMatrix')
         {
             $MatrixProps = @{
+                 'InitialAccess' = $Null
                  'Persistence' = $Null
                  'PrivilegeEscalation' = $Null
                  'DefenseEvasion' = $Null
@@ -1205,17 +1206,19 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
             $ATTACKMatrix.Collection = $Techniques | ? -Property Tactic -eq "Collection" | select -ExpandProperty Name | Sort-Object          
             $ATTACKMatrix.Exfiltration = $Techniques | ? -Property Tactic -eq "Exfiltration" | select -ExpandProperty Name | Sort-Object
             $ATTACKMatrix.CommandControl = $Techniques | ? -Property Tactic -eq "Command and Control" | select -ExpandProperty Name | Sort-Object
+            $ATTACKMatrix.InitialAccess = $Techniques | ? -Property Tactic -eq "Initial Access" | select -ExpandProperty Name | Sort-Object
             
             #Source: https://community.spiceworks.com/topic/795591-output-multiple-arrays-as-columns-in-csv
             #Source: https://stackoverflow.com/questions/23411202/powershell-combine-single-arrays-into-columns
             $max = (
+                $ATTACKMatrix.InitialAccess,
+                $ATTACKMatrix.Execution,
                 $ATTACKMatrix.Persistence,
                 $ATTACKMatrix.PrivilegeEscalation,
                 $ATTACKMatrix.DefenseEvasion,
                 $ATTACKMatrix.CredentialAccess,
                 $ATTACKMatrix.Discovery,
                 $ATTACKMatrix.LateralMovement,
-                $ATTACKMatrix.Execution,
                 $ATTACKMatrix.Collection,
                 $ATTACKMatrix.Exfiltration,
                 $ATTACKMatrix.CommandControl | Measure-Object -Maximum -Property Count).Maximum
@@ -1225,13 +1228,14 @@ This script was inspired by @SadProcessor's Get-ATTack.ps1 script
            For ($i = 0; $i -lt $max; $i++)
            {
                 $MatrixTableProps = New-Object Psobject -Property @{
+                    'InitialAccess'= $(If ($ATTACKMatrix.InitialAccess[$i]) {$ATTACKMatrix.InitialAccess[$i]})
+                    'Execution'= $(If ($ATTACKMatrix.Execution[$i]) {$ATTACKMatrix.Execution[$i]})
                     'Persistence'= $(If ($ATTACKMatrix.Persistence[$i]) {$ATTACKMatrix.Persistence[$i]})
                     'Privilege Escalation'= $(If ($ATTACKMatrix.PrivilegeEscalation[$i]) {$ATTACKMatrix.PrivilegeEscalation[$i]})
                     'Defense Evasion'= $(If ($ATTACKMatrix.DefenseEvasion[$i]) {$ATTACKMatrix.DefenseEvasion[$i]})
                     'Credential Access'= $(If ($ATTACKMatrix.CredentialAccess[$i]) {$ATTACKMatrix.CredentialAccess[$i]})
                     'Discovery'= $(If ($ATTACKMatrix.Discovery[$i]) {$ATTACKMatrix.Discovery[$i]})
                     'Lateral Movement'= $(If ($ATTACKMatrix.LateralMovement[$i]) {$ATTACKMatrix.LateralMovement[$i]})
-                    'Execution'= $(If ($ATTACKMatrix.Execution[$i]) {$ATTACKMatrix.Execution[$i]})
                     'Collection'= $(If ($ATTACKMatrix.Collection[$i]) {$ATTACKMatrix.Collection[$i]})
                     'Exfiltration'= $(If ($ATTACKMatrix.Exfiltration[$i]) {$ATTACKMatrix.Exfiltration[$i]})
                     'Command and Control'= $(If ($ATTACKMatrix.CommandControl[$i]) {$ATTACKMatrix.CommandControl[$i]})
