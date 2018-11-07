@@ -1,6 +1,6 @@
 # Invoke-ATTACKAPI
 A PowerShell script to interact with the MITRE ATT&amp;CK Framework via its own API in order to gather information about techniques, 
-tactics, groups, software and references provided by the MITRE ATT&CK Team @MITREattack.
+tactics, groups, software and references provided by the MITRE ATT&CK Team @MITREattack. **THIS SCRIPT IS STILL USING THE DEPRECATED MEEDIAWIKI API. IT HAS NOT BEEN UPDATED YET TO USE THE PUBLIC TAXII SERVERS API**
 
 # Goals
 * Provide an easy way to interact with the MITRE ATT&CK Framework via its own API and PowerShell to the community.
